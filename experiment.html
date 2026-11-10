@@ -231,6 +231,8 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
 .rigs i{font-style:normal;font-family:var(--mono);font-size:.75rem;color:var(--coolant);text-transform:uppercase;letter-spacing:.06em}
 .rigs b{font-family:var(--display);font-weight:620}
 .rigs span{font-size:.9rem;color:var(--muted);line-height:1.4}
+.photo-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:860px){.photo-grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .rig-sec{padding-top:40px;margin-top:40px;border-top:1px solid var(--rule)}
 @media (max-width:860px){.news-item{grid-template-columns:minmax(0,1fr)}.photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rigs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.photo-grid,.badge-row,.rigs{grid-template-columns:minmax(0,1fr)}.yearlist li{grid-template-columns:minmax(0,1fr)}}
@@ -361,31 +363,31 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
     <div class="panel">
       <div class="schem-wrap">
       <svg class="schem" style="min-width:0" viewBox="0 0 600 340" role="img" aria-labelledby="rigb-title">
-        <title id="rigb-title">Schematic of the closed-loop aerothermal platform: a PWM fan supplies cooling air through a porous plate on a cartridge-heated aluminum block; RTDs and a differential pressure transducer feed a LabJack; a Python model predicts surface temperature and sets the fan speed</title>
+        <title id="rigb-title">Schematic of the closed-loop aerothermal platform: a PWM blower supplies cooling air through a porous plate on a cartridge-heated aluminum block; surface thermocouples and a differential pressure transducer feed a LabJack T7; a Python model predicts surface temperature and sets the fan speed</title>
         <defs>
           <pattern id="pores-b" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="var(--surface)"/><circle cx="2" cy="2" r="1.3" fill="var(--muted)"/><circle cx="6" cy="6" r="1.3" fill="var(--muted)"/></pattern>
           <marker id="ahb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="arrowhead" d="M0,0 L10,5 L0,10 z"/></marker>
           <marker id="shb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="sighead" d="M0,0 L10,5 L0,10 z"/></marker>
         </defs>
-        <rect class="box" x="24" y="210" width="96" height="44" rx="3"/>
-        <text x="72" y="230" text-anchor="middle">PWM fan</text>
-        <text class="sm" x="72" y="245" text-anchor="middle">cooling air</text>
-        <path class="pipe" d="M120,232 H178" marker-end="url(#ahb)"/>
+        <rect class="box" x="14" y="210" width="112" height="44" rx="3"/>
+        <text x="70" y="230" text-anchor="middle">PWM blower</text>
+        <text class="sm" x="70" y="245" text-anchor="middle">via MOSFET driver</text>
+        <path class="pipe" d="M126,232 H178" marker-end="url(#ahb)"/>
         <rect x="180" y="150" width="200" height="16" style="fill:url(#pores-b);stroke:var(--ink);stroke-width:1.2"/>
         <text x="280" y="140" text-anchor="middle">porous plate · SS316L or Ti</text>
         <rect class="hot" x="180" y="166" width="200" height="56" rx="2"/>
-        <text x="280" y="190" text-anchor="middle">aluminum heating block</text>
-        <text class="sm" x="280" y="206" text-anchor="middle">cartridge heaters</text>
+        <text x="280" y="190" text-anchor="middle">6061 aluminum block</text>
+        <text class="sm" x="280" y="206" text-anchor="middle">cartridge heaters · ITC controller</text>
         <path class="ink" d="M180,222 V258 H380 V222"/>
         <text class="sm" x="280" y="250" text-anchor="middle">air plenum</text>
         <path class="pipe" d="M230,150 V112 M280,150 V112 M330,150 V112" marker-end="url(#ahb)"/>
         <text class="sm" x="280" y="104" text-anchor="middle">air leaves through the pores</text>
         <circle cx="210" cy="158" r="4" fill="var(--heat)"/><circle cx="350" cy="158" r="4" fill="var(--heat)"/>
-        <text class="sm" x="388" y="160">RTDs on surface</text>
+        <text class="sm" x="388" y="160">K-type TCs on surface</text>
         <text class="sm" x="388" y="244">ΔP transducer</text>
         <rect class="box" x="450" y="40" width="130" height="50" rx="3"/>
-        <text x="515" y="60" text-anchor="middle">LabJack</text>
-        <text class="sm" x="515" y="76" text-anchor="middle">24-bit acquisition · PWM out</text>
+        <text x="515" y="60" text-anchor="middle">LabJack T7</text>
+        <text class="sm" x="515" y="76" text-anchor="middle">acquisition · PWM out</text>
         <rect class="cool" x="450" y="250" width="130" height="62" rx="3"/>
         <text x="515" y="270" text-anchor="middle">Python model</text>
         <text class="sm" x="515" y="285" text-anchor="middle">predicts surface T</text>
@@ -397,18 +399,24 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
         <text class="sm" x="200" y="304">PWM command to fan</text>
       </svg>
       </div>
-      <p class="note">Schematic drawn from the GT2026 paper description, not to scale.</p>
+      <p class="note">Schematic, not to scale. Photos of the actual rig are below.</p>
     </div>
     <div>
       <ul class="plain-list" style="margin-top:0">
-        <li><b>Test section.</b> Porous SS316L and titanium plates mounted on a modular aluminum block with embedded cartridge heaters, so the heat input is known and repeatable.</li>
-        <li><b>Instrumentation.</b> Surface-mounted RTDs and a differential pressure transducer across the plate, logged with 24-bit resolution.</li>
-        <li><b>LabJack control programming.</b> I programmed the LabJack data acquisition and the PWM output that sets the cooling-fan speed, so the same script logs temperature and pressure and drives the coolant flow in a closed loop.</li>
+        <li><b>Test section.</b> Porous SS316L and titanium plates mounted on a 6061-T6511 aluminum block with embedded cartridge heaters. An ITC temperature controller and a solid-state relay regulate the heaters, so the heat input is repeatable.</li>
+        <li><b>Instrumentation.</b> Adhesive K-type thermocouples at fixed positions on the plate surface (17.28 mm spacing) and a differential pressure transducer across the plate.</li>
+        <li><b>LabJack control programming.</b> A LabJack T7, connected to the computer over Ethernet, logs the sensors and outputs the PWM signal that drives the blower through a MOSFET board. I programmed the acquisition and control so one script logs temperature and pressure and sets the coolant flow in a closed loop.</li>
         <li><b>Transient response.</b> Step changes in fan speed gave a thermal time constant of <b>48 ± 2.3 s</b> for the titanium plates (HT2026), which sets how fast a controller must act.</li>
         <li><b>Predictive control.</b> A supervised model trained on the measured data predicts the surface-temperature rise and adjusts the cooling-air flow before overshoot, instead of reacting after it (GT2026-176271).</li>
       </ul>
       <p style="margin-top:16px"><a href="https://doi.org/10.1115/GT2026-176271" target="_blank" rel="noopener">GT2026-176271 paper ↗</a> · <a href="current-work.html">Where this led: the data-center test vehicle →</a></p>
     </div>
+  </div>
+  <div class="photo-grid four" style="margin-top:24px">
+    <figure><img src="media/rigb-test-section.jpg" alt="Rig B test section: aluminum block with porous plate, ITC-controller thermocouple, and adhesive K-type surface thermocouple, labeled" width="510" height="384"><figcaption>Test section: 6061-T6511 aluminum block, porous plate, and surface thermocouples.</figcaption></figure>
+    <figure><img style="object-fit:contain;background:#fff" src="media/rigb-thermocouple-positions.jpg" alt="Drawing of thermocouple positions on the porous plate, 17.28 mm apart and 32.05 mm from the edge" width="559" height="482"><figcaption>Thermocouple positions on the plate (17.28 mm spacing).</figcaption></figure>
+    <figure><img src="media/rigb-labjack-t7.jpg" alt="Red LabJack T7 data acquisition unit wired to a MOSFET driver board" width="408" height="307"><figcaption>LabJack T7 with the MOSFET board that drives the fan.</figcaption></figure>
+    <figure><img src="media/rigb-pwm-fan.jpg" alt="PWM blower fan mounted on the rig" width="307" height="408"><figcaption>PWM blower that sets the cooling-air flow.</figcaption></figure>
   </div>
   </div>
 </section>
