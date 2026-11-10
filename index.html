@@ -205,8 +205,8 @@ img,video{max-width:100%}
 (function(){var m={arc:'research.html?gs',next:'research.html?gs#next',experiment:'experiment.html?gs',models:'current-work.html?gs','ttv-t':'current-work.html?gs#ttv-t','rot-t':'current-work.html?gs#rot-t',publications:'publications.html?gs',funding:'funding.html?gs',teaching:'teaching.html?gs',background:'background.html?gs',contact:'contact.html?gs'};var h=location.hash.slice(1);if(m[h])location.replace(m[h]);})();
 </script>
 <script>
-// Opened from a Google Sites section page (?gs): Google shows the menu, so hide this one. From the Google Home page, this menu is the only one.
-if (window.self !== window.top && /[?&]gs\b/.test(location.search)) document.documentElement.classList.add("embedded");
+// Inside Google Sites (an iframe), Google's menu is the only menu; hide this site's own menu.
+if (window.self !== window.top) document.documentElement.classList.add("embedded");
 </script>
 <style>html.embedded .bar{display:none}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}</style>
 </head>
