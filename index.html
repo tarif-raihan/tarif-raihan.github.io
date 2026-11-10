@@ -202,13 +202,13 @@ img,video{max-width:100%}
 <meta name="description" content="Md Tarif Raihan: porous-media cooling for high-heat-flux aerospace and data-center systems. Experiments, non-equilibrium models, and model-based control.">
 <script>
 // Old one-page links (e.g. from Google Sites embeds) open the matching page.
-(function(){var m={arc:'research.html',next:'research.html#next',experiment:'experiment.html',models:'current-work.html','ttv-t':'current-work.html#ttv-t','rot-t':'current-work.html#rot-t',publications:'publications.html',funding:'funding.html',teaching:'teaching.html',background:'background.html',contact:'contact.html'};var h=location.hash.slice(1);if(m[h])location.replace(m[h]);})();
+(function(){var m={arc:'research.html?gs',next:'research.html?gs#next',experiment:'experiment.html?gs',models:'current-work.html?gs','ttv-t':'current-work.html?gs#ttv-t','rot-t':'current-work.html?gs#rot-t',publications:'publications.html?gs',funding:'funding.html?gs',teaching:'teaching.html?gs',background:'background.html?gs',contact:'contact.html?gs'};var h=location.hash.slice(1);if(m[h])location.replace(m[h]);})();
 </script>
 <script>
-// Inside Google Sites (an iframe), Google shows the menu; hide this site's own menu to avoid two rows.
-if (window.self !== window.top) document.documentElement.classList.add("embedded");
+// Opened from a Google Sites section page (?gs): Google shows the menu, so hide this one. From the Google Home page, this menu is the only one.
+if (window.self !== window.top && /[?&]gs\b/.test(location.search)) document.documentElement.classList.add("embedded");
 </script>
-<style>html.embedded .bar{display:none}</style>
+<style>html.embedded .bar{display:none}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}</style>
 </head>
 <body>
 <header class="bar"><div class="bar-in">
