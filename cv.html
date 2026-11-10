@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one long research narrative. A sticky section index on top, a 68ch reading column,
+   evidence blocks (photos, measured data, schematics) break out to the full 1120px width. */
+:root{
+  --bg:#f4f6f7; --surface:#ffffff; --ink:#15222c; --muted:#53636f; --rule:#d3dbe0;
+  --coolant:#1b5a85; --coolant-soft:#e3eef5; --heat:#b4570f; --heat-soft:#f6eadf;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --wrap:1120px; --read:68ch;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e161c; --surface:#152029; --ink:#e4ecf0; --muted:#9bacb7; --rule:#293a46;
+  --coolant:#72b6e3; --coolant-soft:#17303f; --heat:#f0a35a; --heat-soft:#3a2a1c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e161c; --surface:#152029; --ink:#e4ecf0; --muted:#9bacb7; --rule:#293a46;
+  --coolant:#72b6e3; --coolant-soft:#17303f; --heat:#f0a35a; --heat-soft:#3a2a1c; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--coolant);text-underline-offset:.18em}
+a:focus-visible,button:focus-visible{outline:2px solid var(--coolant);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--display);font-stretch:108%;line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.6rem,3.2vw,2.1rem);font-weight:650;letter-spacing:-.01em}
+h3{font-size:1.2rem;font-weight:620}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto}
+.read{max-width:var(--read)}
+.label{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono);font-size:.88em}
+.num{font-variant-numeric:tabular-nums}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(6px);border-bottom:1px solid var(--rule);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)))}
+.bar-in{max-width:var(--wrap);margin:0 auto;display:flex;align-items:center;gap:24px;padding-block:10px;
+  padding-inline:max(16px,env(safe-area-inset-left,0px))}
+.bar .who{font-family:var(--display);font-weight:650;font-stretch:112%;white-space:nowrap;color:var(--ink);text-decoration:none}
+.bar nav{overflow-x:auto;min-width:0;scrollbar-width:none}
+.bar nav::-webkit-scrollbar{display:none}
+.bar ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;white-space:nowrap}
+.bar nav a{font-family:var(--mono);font-size:.78rem;color:var(--muted);text-decoration:none}
+.bar nav a:hover{color:var(--coolant)}
+
+section{padding-block:clamp(48px,7vw,88px);border-bottom:1px solid var(--rule)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:grid;gap:10px;margin-bottom:32px}
+.sec-head p{color:var(--muted);max-width:var(--read)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
+.hero .q{font-family:var(--display);font-stretch:104%;font-weight:560;font-size:clamp(1.75rem,4.1vw,2.85rem);line-height:1.12;letter-spacing:-.015em;margin-block:14px 22px}
+.hero .q em{font-style:normal;color:var(--coolant)}
+.hero .lede{font-size:1.15rem;max-width:58ch}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;margin-top:28px;padding-top:20px;border-top:1px solid var(--rule)}
+.facts div{display:grid;gap:2px}
+.facts b{font-family:var(--display);font-weight:600;font-size:1rem}
+.facts span{font-size:.92rem;color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:24px;font-family:var(--mono);font-size:.85rem}
+.hero figure{margin:0}
+.hero img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:3px;display:block}
+figcaption{font-size:.86rem;color:var(--muted);margin-top:8px;line-height:1.45}
+
+/* arc */
+.arc{display:grid;gap:0;counter-reset:stage}
+.stage{display:grid;grid-template-columns:150px minmax(0,1fr);gap:28px;padding-block:28px;border-top:1px solid var(--rule)}
+.stage:first-child{border-top:0;padding-top:0}
+.stage .when{display:grid;align-content:start;gap:4px}
+.stage .yrs{font-family:var(--mono);font-size:.95rem;font-weight:500;color:var(--ink)}
+.stage .where{font-size:.85rem;color:var(--muted);line-height:1.35}
+.stage h3{margin-bottom:12px}
+.stage dl{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 18px;margin:0;max-width:78ch}
+.stage dt{font-family:var(--mono);font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:.32em}
+.stage dd{margin:0}
+.stage dt.open{color:var(--heat)}
+.stage .status{display:inline-block;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;padding:2px 8px;border-radius:2px;background:var(--heat-soft);color:var(--heat);margin-left:8px;vertical-align:.15em;text-transform:uppercase}
+
+/* evidence */
+.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.gallery figure{margin:0}
+.gallery img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:3px;display:block;background:var(--rule)}
+.ev-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);margin-top:44px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:22px}
+.panel h3{margin-bottom:6px}
+.panel .note{font-size:.88rem;color:var(--muted);margin-top:12px;line-height:1.5}
+.chart{width:100%;height:auto;display:block;margin-top:10px}
+.chart text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.chart .grid{stroke:var(--rule);stroke-width:1}
+.chart .ti{stroke:var(--coolant);fill:none;stroke-width:2.5}
+.chart .ss{stroke:var(--heat);fill:none;stroke-width:2.5}
+.chart .ti-d{fill:var(--coolant)} .chart .ss-d{fill:var(--heat)}
+.chart .lab-ti{fill:var(--coolant);font-weight:500} .chart .lab-ss{fill:var(--heat);font-weight:500}
+.chart .val{fill:var(--ink);font-size:10.5px}
+table.spec{width:100%;border-collapse:collapse;font-size:.93rem}
+table.spec th,table.spec td{text-align:left;padding:8px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+table.spec th{font-weight:400;color:var(--muted);width:44%;padding-right:12px}
+table.spec td{font-variant-numeric:tabular-nums}
+.video{margin-top:44px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(20px,4vw,44px);align-items:center}
+.video video{width:100%;border-radius:3px;background:#000;display:block;aspect-ratio:16/9}
+
+/* schematics */
+.schem{width:100%;height:auto;display:block}
+.schem text{font-family:var(--mono);font-size:11px;fill:var(--ink)}
+.schem .sm{font-size:9.5px;fill:var(--muted)}
+.schem .box{fill:var(--surface);stroke:var(--ink);stroke-width:1.3}
+.schem .hot{fill:var(--heat-soft);stroke:var(--heat);stroke-width:1.3}
+.schem .cool{fill:var(--coolant-soft);stroke:var(--coolant);stroke-width:1.3}
+.schem .pipe{stroke:var(--coolant);stroke-width:2.2;fill:none}
+.schem .sig{stroke:var(--muted);stroke-width:1.1;fill:none;stroke-dasharray:4 3}
+.schem .ink{stroke:var(--ink);stroke-width:1.3;fill:none}
+.schem .porous{fill:url(#pores);stroke:var(--ink);stroke-width:1.2}
+.schem .arrowhead{fill:var(--coolant)} .schem .sighead{fill:var(--muted)} .schem .heathead{fill:var(--heat)}
+.schem .heatline{stroke:var(--heat);stroke-width:1.6;fill:none}
+.schem-wrap{overflow-x:auto}
+.schem-wrap svg{min-width:560px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);align-items:start}
+.two .panel p+p{margin-top:12px}
+.plain-list{margin:12px 0 0;padding-left:1.1em}
+.plain-list li+li{margin-top:6px}
+
+/* next */
+.thrusts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.thrust{border-top:3px solid var(--coolant);padding-top:16px;display:grid;gap:10px;align-content:start}
+.thrust .label{color:var(--coolant)}
+
+/* publications */
+.pubs h3{font-size:1rem;margin:30px 0 4px;font-stretch:112%}
+.pubs h3:first-child{margin-top:0}
+.pubs ol{list-style:none;margin:0;padding:0}
+.pubs li{padding:12px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px}
+.pubs .t{font-weight:600}
+.pubs .a{font-size:.92rem;color:var(--muted)}
+.pubs .v{font-size:.92rem;font-style:italic}
+.pill{font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap;align-self:start;border:1px solid var(--rule);color:var(--muted)}
+.pill.pub{background:var(--coolant-soft);color:var(--coolant);border-color:transparent}
+.pill.acc{background:var(--heat-soft);color:var(--heat);border-color:transparent}
+.pubs li .doi{font-family:var(--mono);font-size:.8rem;overflow-wrap:anywhere}
+
+/* lists, background */
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,44px)}
+.cv-list{list-style:none;margin:0;padding:0}
+.cv-list li{padding:10px 0;border-bottom:1px solid var(--rule);display:grid;gap:2px}
+.cv-list li > div{display:grid;gap:2px;min-width:0}
+.cv-list b{font-weight:600}
+.cv-list span{font-size:.9rem;color:var(--muted)}
+.fund li{grid-template-columns:minmax(0,1fr) auto}
+.amt{font-family:var(--mono);font-size:.85rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.contact{display:grid;gap:14px}
+.copyrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.copyrow code{font-family:var(--mono);font-size:1rem;user-select:all;background:var(--surface);border:1px solid var(--rule);padding:6px 10px;border-radius:3px}
+button{font-family:var(--mono);font-size:.8rem;padding:7px 12px;border:1px solid var(--coolant);background:transparent;color:var(--coolant);border-radius:3px;cursor:pointer}
+button:hover{background:var(--coolant-soft)}
+footer{padding-block:28px 40px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--rule)}
+
+@media (max-width:860px){
+  .hero,.ev-grid,.two,.video{grid-template-columns:minmax(0,1fr)}
+  .hero figure{max-width:420px}
+  .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .thrusts,.cols3{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:600px){
+  .stage{grid-template-columns:minmax(0,1fr);gap:10px}
+  .stage dl{grid-template-columns:minmax(0,1fr);gap:2px}
+  .stage dd{margin-bottom:10px}
+  .facts{grid-template-columns:minmax(0,1fr)}
+  .pubs li,.fund li{grid-template-columns:minmax(0,1fr)}
+  .bar .who{display:none}
+}
+html.smooth{scroll-behavior:smooth}
+
+/* base reset (standalone page) */
+[id]{scroll-margin-top:64px}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img,video{max-width:100%}
+[hidden]{display:none!important}
+
+/* multi-page additions */
+.bar nav a[aria-current="page"]{color:var(--coolant);text-decoration:underline;text-underline-offset:.35em}
+.bar .who[aria-current="page"]{color:var(--ink)}
+.sec-head h1{font-size:clamp(1.6rem,3.2vw,2.1rem);font-weight:650;letter-spacing:-.01em}
+.pages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.pages a{display:grid;gap:6px;align-content:start;padding:20px;border:1px solid var(--rule);border-radius:4px;background:var(--surface);color:var(--ink);text-decoration:none}
+.pages a:hover{border-color:var(--coolant)}
+.pages a b{font-family:var(--display);font-weight:620;font-size:1.1rem}
+.pages a span{color:var(--muted);font-size:.95rem;line-height:1.45}
+.pages a i{font-style:normal;font-family:var(--mono);font-size:.8rem;color:var(--coolant)}
+@media (max-width:860px){.pages{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.pages{grid-template-columns:minmax(0,1fr)}}
+</style>
+<title>CV | Md Tarif Raihan</title>
+<meta name="description" content="Curriculum vitae of Md Tarif Raihan, Ph.D. candidate in Mechanical Engineering, University of Wisconsin–Milwaukee.">
+<script>
+// Opened from a Google Sites section page (?gs): Google shows the menu, so hide this one. From the Google Home page, this menu is the only one.
+if (window.self !== window.top && /[?&]gs\b/.test(location.search)) document.documentElement.classList.add("embedded");
+</script>
+<style>html.embedded .bar{display:none}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="who" href="index.html">M. T. Raihan</a>
+  <nav aria-label="Pages"><ul>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="experiment.html">Experiment</a></li>
+    <li><a href="current-work.html">Current work</a></li>
+    <li><a href="publications.html">Publications</a></li>
+    <li><a href="funding.html">Funding</a></li>
+    <li><a href="teaching.html">Teaching</a></li>
+    <li><a href="background.html">Background</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul></nav>
+</div></header>
+
+<main class="wrap">
+
+<section id="cv" aria-labelledby="cv-h">
+  <div class="sec-head">
+    <p class="label">Curriculum vitae · November 2026</p>
+    <h1 id="cv-h">Md Tarif Raihan</h1>
+    <p>Ph.D. candidate in Mechanical Engineering, University of Wisconsin–Milwaukee · Certified Energy Manager · mdraihan@uwm.edu</p>
+    <p class="cv-pdf"><a href="assets/Md_Tarif_Raihan_Resume.pdf" target="_blank" rel="noopener">Open the PDF version ↗</a> <span style="color:var(--muted)">(works when this site is opened directly at tarif-raihan.github.io)</span></p>
+  </div>
+  <div class="two">
+    <div><div><p class="label" style="margin-bottom:6px">Experience</p><ul class="cv-list"><li><b>Graduate Research Assistant · UW–Milwaukee · Aug 2022–present</b><span>Advisor: Prof. Ryoichi S. Amano. Transpiration-cooling experiments on sintered SS316L and titanium plates at Re 39,000–70,000 (titanium performed better at every condition; GT2025-151170). 1-D and 2-D Python LTNE Darcy–Forchheimer solvers validated against the experiments; corrected a Kozeny–Carman permeability mismatch; ranked solid conductivity first, pore architecture second, pore diameter last (ASME JERT, 2026). Thermal time constant 48 ± 2.3 s on a closed-loop aerothermal platform (GT2026; HT2026). Designing a data-center liquid-cooling test vehicle with a physics-informed neural-network surrogate (10,000 simulated operating points); hardware validation in progress. Wrote and leads a $50,000 UWM Research Foundation Catalyst project.</span></li><li><b>Industrial Energy Assessor &amp; Report Reviewer · U.S. DOE ITAC, UW–Milwaukee · 2022–present</b><span>Assessed 36 manufacturing plants and led 14 assessments; about 8–9 recommendations per report on HVAC, compressed air, motors, lighting and waste-heat recovery. Reviewed 38 ITAC and BTAC reports.</span></li><li><b>Scientific Computing Research · NSF CIBERCATSS · Summer 2026</b><span>JAX-FEM differentiable inverse modeling (mentor: Dr. Tian Zhao). Porosity identifiable from temperature data; permeability not.</span></li><li><b>Engineering Intern · Clean Energy Program, RPI Inc., Racine, WI · Aug 2023–Jun 2024</b><span>Waste-heat recovery and thermal-system techno-economic analyses. SolidWorks designs for ABB (about 500 units manufactured) and Nordco.</span></li><li><b>Graduate Researcher, M.Sc. Thesis · Technische Hochschule Ingolstadt · 2022</b><span>MATLAB/Simulink (CARNOT) hybrid heat-pump model: borehole depth cut 21% (70 m to 55 m); switching strategy alone raised annual performance factor 15% (2.98 to 3.42).</span></li><li><b>Energy Engineer · Stichting Bangladesh Accord Foundation · Apr 2018–Jun 2020</b><span>Inspected 467 garment factories for fire and building safety; corrective action plans followed to closure.</span></li><li><b>Sustainable Infrastructure Development Engineer · Fabulous Fashions Ltd. · Nov 2014–Apr 2018</b><span>ISO 50001, ISO 14001 and LEED v4 projects; boiler and generator efficiency tests; solar PV supplying 10% of plant energy; led a team of 12.</span></li></ul></div></div>
+    <div style="display:grid;gap:28px"><div><p class="label" style="margin-bottom:6px">Education</p><ul class="cv-list"><li><b>Ph.D., Mechanical Engineering</b><span>University of Wisconsin–Milwaukee · expected May 2027</span></li><li><b>M.Sc., Renewable Energy Systems</b><span>Technische Hochschule Ingolstadt, Germany · 2022</span></li><li><b>B.Sc., Mechanical Engineering</b><span>Chittagong University of Engineering and Technology · 2014</span></li><li><b>Certified Energy Manager (CEM)</b><span>Association of Energy Engineers · 2025</span></li></ul></div><div><p class="label" style="margin-bottom:6px">Teaching and mentoring</p><ul class="cv-list"><li><b>Teaching Assistant · UW–Milwaukee · Fall 2022–present</b><span>ME 320 Introduction to Fluid Mechanics (classes of up to 86): discussion sections, a lecture, and a pipe pressure-drop lab module. Ratings 4.56/5 and 4.83/5. Also ME 321, ME 360, ME 430.</span></li><li><b>Mentoring</b><span>Seven SURF undergraduate researchers; four undergraduates trained in energy assessment; 11 students guided on plant-recommendation projects.</span></li></ul></div><div><p class="label" style="margin-bottom:6px">Skills</p><ul class="cv-list"><li><b>Experimental</b><span>Transpiration and convective heat-transfer testing; test-rig design; thermocouple, flow and pressure-drop instrumentation; LabJack; PWM control; NVIDIA Jetson; calibration and uncertainty analysis.</span></li><li><b>Computational</b><span>Python; MATLAB/Simulink; CARNOT; JAX/JAX-FEM; LTNE Darcy–Forchheimer modeling; physics-informed neural networks; ANSYS; COMSOL; SolidWorks.</span></li><li><b>Energy</b><span>Industrial energy assessment; compressed-air, HVAC and motor systems; heat pumps; waste-heat recovery; ISO 50001.</span></li></ul></div><div><p class="label" style="margin-bottom:6px">Recognition</p><ul class="cv-list"><li><b>Awards</b><span>ME Graduate Research Award, UWM (2026); NSF CIBERCATSS selected participant (2026); Chancellor’s Graduate Student Award, UWM (2025); ME Graduate Student Research Achievement Award, UWM (2024); Finalist, Michael Krauski Memorial Award (2024).</span></li><li><b>Service</b><span>President, Society of Power Engineers, UWM (2024–present). Member: ASME, ASHRAE, AEE.</span></li></ul></div><p><a href="publications.html">Full publication list →</a> · <a href="funding.html">Funding →</a></p></div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Md Tarif Raihan · Department of Mechanical Engineering, University of Wisconsin–Milwaukee · Updated November 2026. Photographs are original laboratory and conference images; diagrams are labeled schematics.</div></footer>
+
+<script>
+// Re-align to the #section in the address after photos and fonts load (used by the Google Sites embeds).
+(function(){
+  function align(){
+    var h=location.hash.slice(1); if(!h) return;
+    var e=document.getElementById(h); if(!e) return;
+    window.scrollTo({top: e.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'instant'});
+  }
+  window.addEventListener('load', function(){
+    align();
+    setTimeout(function(){ align();
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('smooth');
+    }, 150);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(align);
+})();
+</script>
+</body>
+</html>
