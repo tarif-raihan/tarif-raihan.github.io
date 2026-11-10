@@ -221,6 +221,10 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
 .photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .photo-grid figure{margin:0}
 .photo-grid img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:3px;display:block;background:var(--rule)}
+.photo-grid.portrait{grid-template-columns:repeat(4,minmax(0,1fr))}
+.photo-grid.portrait img{aspect-ratio:3/4;object-position:50% 30%}
+@media (max-width:860px){.photo-grid.portrait{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.news-item img[src$=".webp"]{object-position:50% 30%}
 .badge-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:8px}
 .badge{border:1px solid var(--rule);border-left:3px solid var(--coolant);background:var(--surface);border-radius:3px;padding:16px 18px}
 .badge b{font-family:var(--display);font-weight:620;display:block}
@@ -259,7 +263,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
   <div class="sec-head">
     <p class="label">News &amp; gallery</p>
     <h1 id="news-h">News and photographs</h1>
-    <p>Recognition, grants, papers, and conference moments, newest first.</p>
+    <p>Grants, awards, papers, and conference moments, newest first.</p>
   </div>
 
   <article class="news-item">
@@ -309,13 +313,11 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
     <p class="label">Gallery</p>
     <h2 id="gallery-h">Photographs</h2>
   </div>
-  <div class="photo-grid">
-    <figure><img src="media/catalyst-lab.jpg" alt="Wiring the cooling platform with Prof. Amano" width="750" height="500"><figcaption>Wiring the electronics-cooling platform with Prof. Amano, 2026.</figcaption></figure>
-    <figure><img src="media/me-research-awards-2026.jpg" alt="2026 graduate research award recipients" width="750" height="500"><figcaption>2026 ME Graduate Students Research Achievement Awards, UWM.</figcaption></figure>
+  <div class="photo-grid portrait">
+    <figure><img src="media/conference.webp" alt="Md Tarif Raihan with Dr. Ryoichi S. Amano at ASME Turbo Expo 2025" width="1200" height="1600"><figcaption>With Dr. Ryoichi S. Amano at ASME Turbo Expo 2025, Memphis.</figcaption></figure>
     <figure><img src="media/podium.webp" alt="At the lectern, ASME Turbo Expo 2025" width="1200" height="1600"><figcaption>At the lectern, ASME Turbo Expo 2025.</figcaption></figure>
     <figure><img src="media/talk.webp" alt="Presenting at ASME Turbo Expo 2025" width="1200" height="1600"><figcaption>Presenting GT2025-151170.</figcaption></figure>
-    <figure><img src="media/conference.webp" alt="Md Tarif Raihan with Dr. Ryoichi S. Amano at ASME Turbo Expo 2025" width="1200" height="1600"><figcaption>With Dr. Ryoichi S. Amano at ASME Turbo Expo 2025.</figcaption></figure>
-    <figure><img src="media/rig-overview.webp" alt="Stationary transpiration-cooling rig" width="900" height="1600"><figcaption>The stationary transpiration-cooling rig at UWM.</figcaption></figure>
+    <figure><img src="media/rig-overview.webp" alt="Stationary transpiration-cooling rig in the UWM lab" width="900" height="1600"><figcaption>The stationary transpiration-cooling rig behind the paper.</figcaption></figure>
   </div>
 </section>
 
