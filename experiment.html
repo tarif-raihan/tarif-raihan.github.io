@@ -198,23 +198,55 @@ img,video{max-width:100%}
 @media (max-width:860px){.pages{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.pages{grid-template-columns:minmax(0,1fr)}}
 </style>
-<title>Transpiration-Cooling Experiment | Md Tarif Raihan</title>
+<title>Experiments | Md Tarif Raihan</title>
 <meta name="description" content="Rig photos, video, and measured results from the SS316L and titanium transpiration-cooling experiments (ASME GT2025-151170).">
 <script>
 // Inside Google Sites (an iframe), Google's menu is the only menu; hide this site's own menu.
 if (window.self !== window.top) document.documentElement.classList.add("embedded");
 </script>
 <style>html.embedded .bar{display:none}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}</style>
+<style>
+/* news, awards, galleries */
+.yearlist{list-style:none;margin:0;padding:0}
+.yearlist li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:6px 20px;padding:16px 0;border-bottom:1px solid var(--rule)}
+.yearlist .yr{font-family:var(--mono);font-size:.85rem;color:var(--coolant);padding-top:.15em}
+.yearlist b{font-family:var(--display);font-weight:620;font-size:1.05rem;display:block}
+.yearlist p{color:var(--muted);margin-top:4px}
+.news-item{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,4vw,40px);align-items:start;padding-block:28px;border-top:1px solid var(--rule)}
+.news-item:first-of-type{border-top:0;padding-top:0}
+.news-item img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:3px;display:block}
+.news-item .yr{font-family:var(--mono);font-size:.8rem;color:var(--coolant);letter-spacing:.06em;text-transform:uppercase}
+.news-item h2{font-size:1.35rem;margin:6px 0 10px}
+.news-item p+p{margin-top:10px}
+.photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.photo-grid figure{margin:0}
+.photo-grid img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:3px;display:block;background:var(--rule)}
+.badge-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:8px}
+.badge{border:1px solid var(--rule);border-left:3px solid var(--coolant);background:var(--surface);border-radius:3px;padding:16px 18px}
+.badge b{font-family:var(--display);font-weight:620;display:block}
+.badge span{color:var(--muted);font-size:.95rem}
+.rigs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:8px}
+.rigs a{display:grid;gap:4px;align-content:start;padding:16px;border:1px solid var(--rule);border-radius:4px;background:var(--surface);color:var(--ink);text-decoration:none}
+.rigs a:hover{border-color:var(--coolant)}
+.rigs i{font-style:normal;font-family:var(--mono);font-size:.75rem;color:var(--coolant);text-transform:uppercase;letter-spacing:.06em}
+.rigs b{font-family:var(--display);font-weight:620}
+.rigs span{font-size:.9rem;color:var(--muted);line-height:1.4}
+.rig-sec{padding-top:40px;margin-top:40px;border-top:1px solid var(--rule)}
+@media (max-width:860px){.news-item{grid-template-columns:minmax(0,1fr)}.photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rigs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.photo-grid,.badge-row,.rigs{grid-template-columns:minmax(0,1fr)}.yearlist li{grid-template-columns:minmax(0,1fr)}}
+</style>
 </head>
 <body>
 <header class="bar"><div class="bar-in">
   <a class="who" href="index.html">M. T. Raihan</a>
   <nav aria-label="Pages"><ul>
     <li><a href="research.html">Research</a></li>
-    <li><a href="experiment.html" aria-current="page">Experiment</a></li>
+    <li><a href="experiment.html" aria-current="page">Experiments</a></li>
     <li><a href="current-work.html">Current work</a></li>
     <li><a href="publications.html">Publications</a></li>
     <li><a href="funding.html">Funding</a></li>
+    <li><a href="awards.html">Awards</a></li>
+    <li><a href="news.html">News</a></li>
     <li><a href="teaching.html">Teaching</a></li>
     <li><a href="background.html">Background</a></li>
     <li><a href="contact.html">Contact</a></li>
@@ -225,9 +257,27 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
 
 <section id="experiment" aria-labelledby="exp-h">
   <div class="sec-head">
-    <p class="label">Featured evidence · ASME Turbo Expo 2025, GT2025-151170</p>
-    <h1 id="exp-h">Inside the transpiration-cooling experiment</h1>
-    <p>The stationary rig represents a turbine trailing edge cooled through a porous wall. I ran the tests on SS316L and titanium plates of identical geometry and presented the results at Turbo Expo 2025 in Memphis.</p>
+    <p class="label">Experiments</p>
+    <h1 id="exp-h">Four test rigs, from steady cooling to predictive control</h1>
+    <p>Each rig answered a question the previous one raised: what changes with material and pore structure, how fast the wall responds, and whether a model can act before the temperature rises.</p>
+  </div>
+  <div class="rigs">
+    <a href="#rig-a"><i>Rig A · completed</i><b>Stationary transpiration channel</b><span>GT2025 · SHTC 2025 · IMECE 2025</span></a>
+    <a href="#rig-b"><i>Rig B · completed</i><b>Closed-loop aerothermal platform</b><span>LabJack control, transient tests, predictive control · GT2026 · HT2026</span></a>
+    <a href="current-work.html#ttv-t"><i>Rig C · in progress</i><b>Data-center test vehicle</b><span>Liquid cooling with a physics-informed model</span></a>
+    <a href="current-work.html#rot-t"><i>Rig D · design</i><b>Rotating transpiration rig</b><span>Transpiration cooling under rotation</span></a>
+  </div>
+
+  <div class="rig-sec" id="rig-a">
+  <div class="sec-head">
+    <p class="label">Rig A · ASME Turbo Expo 2025 · ASME Heat Transfer Summer Conference 2025 · IMECE 2025</p>
+    <h2>Stationary transpiration channel</h2>
+    <p>A two-pass channel with a porous end wall, representing a turbine trailing edge cooled through a porous wall. Three specimen studies ran on this rig:</p>
+    <ul class="plain-list" style="max-width:68ch">
+      <li><b>SS316L vs. titanium</b> (GT2025-151170): titanium performed better at every Reynolds number tested.</li>
+      <li><b>Sintered wire mesh vs. sintered powder</b> (SHTC 2025, HT2025-156087): the powder’s uniform pore structure cooled better than the direction-dependent wire mesh.</li>
+      <li><b>80 µm vs. 100 µm wire-mesh pores</b> (IMECE2025-164512).</li>
+    </ul>
   </div>
 
   <div class="gallery">
@@ -298,6 +348,68 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
       <h3>15-second rig walkthrough</h3>
       <p style="margin-top:8px">No narration. The camera follows the clear test channel along the bench to the porous end wall and the connected flow and measurement equipment.</p>
     </div>
+  </div>
+  </div>
+
+  <div class="rig-sec" id="rig-b">
+  <div class="sec-head">
+    <p class="label">Rig B · ASME Turbo Expo 2026 (GT2026-176271) · ASME Heat Transfer Summer Conference 2026</p>
+    <h2>Closed-loop aerothermal platform: LabJack control and transient response</h2>
+    <p>Rig A measured steady cooling. Rig B asks how fast a porous wall responds when the heat load or coolant flow changes, and whether a learned model can adjust the flow before the wall overheats.</p>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <div class="schem-wrap">
+      <svg class="schem" style="min-width:0" viewBox="0 0 600 340" role="img" aria-labelledby="rigb-title">
+        <title id="rigb-title">Schematic of the closed-loop aerothermal platform: a PWM fan supplies cooling air through a porous plate on a cartridge-heated aluminum block; RTDs and a differential pressure transducer feed a LabJack; a Python model predicts surface temperature and sets the fan speed</title>
+        <defs>
+          <pattern id="pores-b" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="var(--surface)"/><circle cx="2" cy="2" r="1.3" fill="var(--muted)"/><circle cx="6" cy="6" r="1.3" fill="var(--muted)"/></pattern>
+          <marker id="ahb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="arrowhead" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="shb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="sighead" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="box" x="24" y="210" width="96" height="44" rx="3"/>
+        <text x="72" y="230" text-anchor="middle">PWM fan</text>
+        <text class="sm" x="72" y="245" text-anchor="middle">cooling air</text>
+        <path class="pipe" d="M120,232 H178" marker-end="url(#ahb)"/>
+        <rect x="180" y="150" width="200" height="16" style="fill:url(#pores-b);stroke:var(--ink);stroke-width:1.2"/>
+        <text x="280" y="140" text-anchor="middle">porous plate · SS316L or Ti</text>
+        <rect class="hot" x="180" y="166" width="200" height="56" rx="2"/>
+        <text x="280" y="190" text-anchor="middle">aluminum heating block</text>
+        <text class="sm" x="280" y="206" text-anchor="middle">cartridge heaters</text>
+        <path class="ink" d="M180,222 V258 H380 V222"/>
+        <text class="sm" x="280" y="250" text-anchor="middle">air plenum</text>
+        <path class="pipe" d="M230,150 V112 M280,150 V112 M330,150 V112" marker-end="url(#ahb)"/>
+        <text class="sm" x="280" y="104" text-anchor="middle">air leaves through the pores</text>
+        <circle cx="210" cy="158" r="4" fill="var(--heat)"/><circle cx="350" cy="158" r="4" fill="var(--heat)"/>
+        <text class="sm" x="388" y="160">RTDs on surface</text>
+        <text class="sm" x="388" y="244">ΔP transducer</text>
+        <rect class="box" x="450" y="40" width="130" height="50" rx="3"/>
+        <text x="515" y="60" text-anchor="middle">LabJack</text>
+        <text class="sm" x="515" y="76" text-anchor="middle">24-bit acquisition · PWM out</text>
+        <rect class="cool" x="450" y="250" width="130" height="62" rx="3"/>
+        <text x="515" y="270" text-anchor="middle">Python model</text>
+        <text class="sm" x="515" y="285" text-anchor="middle">predicts surface T</text>
+        <text class="sm" x="515" y="299" text-anchor="middle">sets fan speed</text>
+        <path class="sig" d="M380,158 H440 V92 H448" marker-end="url(#shb)"/>
+        <path class="sig" d="M380,240 H430 V80 H448" marker-end="url(#shb)"/>
+        <path class="sig" d="M560,90 V248" marker-end="url(#shb)"/>
+        <path class="sig" d="M450,290 H72 V256" marker-end="url(#shb)"/>
+        <text class="sm" x="200" y="304">PWM command to fan</text>
+      </svg>
+      </div>
+      <p class="note">Schematic drawn from the GT2026 paper description, not to scale.</p>
+    </div>
+    <div>
+      <ul class="plain-list" style="margin-top:0">
+        <li><b>Test section.</b> Porous SS316L and titanium plates mounted on a modular aluminum block with embedded cartridge heaters, so the heat input is known and repeatable.</li>
+        <li><b>Instrumentation.</b> Surface-mounted RTDs and a differential pressure transducer across the plate, logged with 24-bit resolution.</li>
+        <li><b>LabJack control programming.</b> I programmed the LabJack data acquisition and the PWM output that sets the cooling-fan speed, so the same script logs temperature and pressure and drives the coolant flow in a closed loop.</li>
+        <li><b>Transient response.</b> Step changes in fan speed gave a thermal time constant of <b>48 ± 2.3 s</b> for the titanium plates (HT2026), which sets how fast a controller must act.</li>
+        <li><b>Predictive control.</b> A supervised model trained on the measured data predicts the surface-temperature rise and adjusts the cooling-air flow before overshoot, instead of reacting after it (GT2026-176271).</li>
+      </ul>
+      <p style="margin-top:16px"><a href="https://doi.org/10.1115/GT2026-176271" target="_blank" rel="noopener">GT2026-176271 paper ↗</a> · <a href="current-work.html">Where this led: the data-center test vehicle →</a></p>
+    </div>
+  </div>
   </div>
 </section>
 

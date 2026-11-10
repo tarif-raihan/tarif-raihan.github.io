@@ -58,7 +58,7 @@ section:last-of-type{border-bottom:0}
 .sec-head p{color:var(--muted);max-width:var(--read)}
 
 /* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
 .hero .q{font-family:var(--display);font-stretch:104%;font-weight:560;font-size:clamp(1.75rem,4.1vw,2.85rem);line-height:1.12;letter-spacing:-.015em;margin-block:14px 22px}
 .hero .q em{font-style:normal;color:var(--coolant)}
 .hero .lede{font-size:1.15rem;max-width:58ch}
@@ -68,7 +68,7 @@ section:last-of-type{border-bottom:0}
 .facts span{font-size:.92rem;color:var(--muted)}
 .links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:24px;font-family:var(--mono);font-size:.85rem}
 .hero figure{margin:0}
-.hero img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:3px;display:block}
+.hero img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:3px;display:block}
 figcaption{font-size:.86rem;color:var(--muted);margin-top:8px;line-height:1.45}
 
 /* arc */
@@ -189,12 +189,13 @@ img,video{max-width:100%}
 .bar nav a[aria-current="page"]{color:var(--coolant);text-decoration:underline;text-underline-offset:.35em}
 .bar .who[aria-current="page"]{color:var(--ink)}
 .sec-head h1{font-size:clamp(1.6rem,3.2vw,2.1rem);font-weight:650;letter-spacing:-.01em}
-.pages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.pages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
 .pages a{display:grid;gap:6px;align-content:start;padding:20px;border:1px solid var(--rule);border-radius:4px;background:var(--surface);color:var(--ink);text-decoration:none}
 .pages a:hover{border-color:var(--coolant)}
 .pages a b{font-family:var(--display);font-weight:620;font-size:1.1rem}
 .pages a span{color:var(--muted);font-size:.95rem;line-height:1.45}
 .pages a i{font-style:normal;font-family:var(--mono);font-size:.8rem;color:var(--coolant)}
+@media (max-width:1000px){.pages{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:860px){.pages{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.pages{grid-template-columns:minmax(0,1fr)}}
 </style>
@@ -202,7 +203,7 @@ img,video{max-width:100%}
 <meta name="description" content="Md Tarif Raihan: porous-media cooling for high-heat-flux aerospace and data-center systems. Experiments, non-equilibrium models, and model-based control.">
 <script>
 // Old one-page links (e.g. from Google Sites embeds) open the matching page.
-(function(){var m={arc:'research.html?gs',next:'research.html?gs#next',experiment:'experiment.html?gs',models:'current-work.html?gs','ttv-t':'current-work.html?gs#ttv-t','rot-t':'current-work.html?gs#rot-t',publications:'publications.html?gs',funding:'funding.html?gs',teaching:'teaching.html?gs',background:'background.html?gs',contact:'contact.html?gs'};var h=location.hash.slice(1);if(m[h])location.replace(m[h]);})();
+(function(){var m={arc:'research.html?gs',next:'research.html?gs#next',experiment:'experiment.html?gs',models:'current-work.html?gs','ttv-t':'current-work.html?gs#ttv-t','rot-t':'current-work.html?gs#rot-t',publications:'publications.html?gs',funding:'funding.html?gs',teaching:'teaching.html?gs',background:'background.html?gs',contact:'contact.html?gs',news:'news.html?gs',awards:'awards.html?gs',cv:'cv.html?gs'};var h=location.hash.slice(1);if(m[h])location.replace(m[h]);})();
 </script>
 <script>
 // Inside Google Sites (an iframe), Google's menu is the only menu; hide this site's own menu.
@@ -215,10 +216,12 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
   <a class="who" href="index.html" aria-current="page">M. T. Raihan</a>
   <nav aria-label="Pages"><ul>
     <li><a href="research.html">Research</a></li>
-    <li><a href="experiment.html">Experiment</a></li>
+    <li><a href="experiment.html">Experiments</a></li>
     <li><a href="current-work.html">Current work</a></li>
     <li><a href="publications.html">Publications</a></li>
     <li><a href="funding.html">Funding</a></li>
+    <li><a href="awards.html">Awards</a></li>
+    <li><a href="news.html">News</a></li>
     <li><a href="teaching.html">Teaching</a></li>
     <li><a href="background.html">Background</a></li>
     <li><a href="contact.html">Contact</a></li>
@@ -240,14 +243,15 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
     </div>
     <div class="links">
       <a href="https://scholar.google.com/citations?user=m9F6rOwAAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a>
+      <a href="https://www.linkedin.com/in/md-tarif-raihan/" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a href="https://github.com/tarif-raihan" target="_blank" rel="noopener">GitHub ↗</a>
       <a href="cv.html">CV ↗</a>
       <a href="contact.html">mdraihan@uwm.edu</a>
     </div>
   </div>
   <figure>
-    <img src="media/rig-overview.webp" alt="Clear Plexiglas two-pass channel on a laboratory bench, with a yellow hot-air blower aimed at the porous end wall and data equipment behind it" width="900" height="1600">
-    <figcaption>Stationary transpiration-cooling rig, UWM. A hot-air blower heats the porous end wall while cooling air runs through the clear two-pass channel.</figcaption>
+    <img src="media/catalyst-lab.jpg" alt="Md Tarif Raihan, seated, wiring a cooling test platform while Prof. Ryoichi Amano assists" width="750" height="500">
+    <figcaption>Wiring the electronics-cooling platform with Prof. Ryoichi Amano for our Catalyst-funded project. Photo: UWM College of Engineering &amp; Applied Science.</figcaption>
   </figure>
 </section>
 
@@ -258,13 +262,15 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
   </div>
   <nav class="pages" aria-label="Site pages">
     <a href="research.html"><i>Research</i><b>How the work developed</b><span>Seven stages from plant floors to porous walls to closed-loop control, and where the work goes next.</span></a>
-    <a href="experiment.html"><i>Experiment</i><b>Inside the transpiration rig</b><span>Rig photos and video, the measured SS316L and titanium results, and the test conditions.</span></a>
+    <a href="experiment.html"><i>Experiments</i><b>Four test rigs</b><span>Steady and transient transpiration cooling, LabJack-based predictive control, and the rigs now being built.</span></a>
     <a href="current-work.html"><i>Current work</i><b>Models and control on hardware</b><span>The data-center thermal test vehicle and the rotating transpiration-cooling rig.</span></a>
     <a href="publications.html"><i>Publications</i><b>Research record</b><span>Journal articles, ASME conference papers, a book chapter, and manuscripts in review.</span></a>
     <a href="funding.html"><i>Funding</i><b>Proposals and awards</b><span>A $50,000 Catalyst grant I wrote and lead, and DOE proposals I helped develop.</span></a>
+    <a href="awards.html"><i>Awards</i><b>Awards and certificates</b><span>2026 Graduate Research Award, Chancellor’s Award, Catalyst Grant, CEM.</span></a>
+    <a href="news.html"><i>News</i><b>News and gallery</b><span>Grant and award stories, conference photos, and milestones.</span></a>
     <a href="teaching.html"><i>Teaching</i><b>Fluid mechanics and mentoring</b><span>ME 320 instruction rated 4.56/5 and 4.83/5, and undergraduate research mentoring.</span></a>
     <a href="background.html"><i>Background</i><b>Education and experience</b><span>Degrees, industry and research roles, awards, and service.</span></a>
-    <a href="contact.html"><i>Contact</i><b>Get in touch</b><span>Email, Google Scholar, GitHub, and the CV.</span></a>
+    <a href="contact.html"><i>Contact</i><b>Get in touch</b><span>Email, LinkedIn, Google Scholar, GitHub, and the CV.</span></a>
   </nav>
 </section>
 
