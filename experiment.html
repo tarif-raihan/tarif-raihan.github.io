@@ -233,6 +233,12 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
 .rigs span{font-size:.9rem;color:var(--muted);line-height:1.4}
 .photo-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media (max-width:860px){.photo-grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.record{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:8px 0 28px}
+.record div{border-top:3px solid var(--coolant);background:var(--surface);padding:14px 14px 16px;border-radius:0 0 3px 3px}
+.record b{display:block;font-family:var(--display);font-size:1.45rem;font-weight:650;color:var(--ink);font-variant-numeric:tabular-nums}
+.record span{display:block;font-size:.88rem;color:var(--muted);line-height:1.35;margin-top:4px}
+@media (max-width:1000px){.record{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.record{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .rig-sec{padding-top:40px;margin-top:40px;border-top:1px solid var(--rule)}
 @media (max-width:860px){.news-item{grid-template-columns:minmax(0,1fr)}.photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rigs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.photo-grid,.badge-row,.rigs{grid-template-columns:minmax(0,1fr)}.yearlist li{grid-template-columns:minmax(0,1fr)}}
@@ -260,14 +266,22 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
 <section id="experiment" aria-labelledby="exp-h">
   <div class="sec-head">
     <p class="label">Experiments</p>
-    <h1 id="exp-h">Four test rigs, from steady cooling to predictive control</h1>
-    <p>Each rig answered a question the previous one raised: what changes with material and pore structure, how fast the wall responds, and whether a model can act before the temperature rises.</p>
+    <h1 id="exp-h">Four test rigs, from steady cooling to closed-loop control</h1>
+    <p>I design, instrument and run my own experiments. Each rig answered a question the previous one raised: what changes with material and pore structure, how fast the wall responds, and whether a model can act before the temperature rises.</p>
+  </div>
+  <div class="record" aria-label="Experimental record">
+    <div><b>4</b><span>test rigs designed, built or rebuilt</span></div>
+    <div><b>4</b><span>porous specimens: Ti and SS316L powder, 80 and 100 µm SS316L mesh</span></div>
+    <div><b>38k–70k</b><span>channel Reynolds numbers, each condition repeated three times</span></div>
+    <div><b>9-point</b><span>infrared surface mapping through a CaF₂ window</span></div>
+    <div><b>τ = 48 s</b><span>measured transient time constant, titanium</span></div>
+    <div><b>6</b><span>ASME papers from these experiments, 2025–2026</span></div>
   </div>
   <div class="rigs">
     <a href="#rig-a"><i>Rig A · completed</i><b>Stationary transpiration channel</b><span>GT2025 · SHTC 2025 · IMECE 2025</span></a>
-    <a href="#rig-b"><i>Rig B · completed</i><b>Closed-loop aerothermal platform</b><span>LabJack control, transient tests, predictive control · GT2026 · HT2026</span></a>
-    <a href="current-work.html#ttv-t"><i>Rig C · in progress</i><b>Data-center test vehicle</b><span>Liquid cooling with a physics-informed model</span></a>
-    <a href="current-work.html#rot-t"><i>Rig D · design</i><b>Rotating transpiration rig</b><span>Transpiration cooling under rotation</span></a>
+    <a href="#rig-b"><i>Rig B · presented 2026</i><b>Closed-loop aerothermal platform</b><span>LabJack control, transient tests · GT2026 · HT2026 · extended for AIAA SciTech</span></a>
+    <a href="current-work.html#ttv-t"><i>Rig C · Catalyst 2026</i><b>Data-center test vehicle</b><span>Liquid cooling with a physics-informed model</span></a>
+    <a href="current-work.html#rot-t"><i>Rig D · next</i><b>Rotating transpiration rig</b><span>Transpiration cooling under rotation</span></a>
   </div>
 
   <div class="rig-sec" id="rig-a">
@@ -281,6 +295,15 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
       <li><b>80 µm vs. 100 µm wire-mesh pores</b> (IMECE2025-164512).</li>
     </ul>
   </div>
+  <div class="two" style="margin-bottom:28px">
+    <figure style="margin:0"><img src="media/riga-facility-schematic.png" alt="Schematic of the transpiration-cooling facility: centrifugal blower, PMMA test section 0.14 by 0.14 by 0.60 m, porous specimen as the heated end wall, baffled convective heat source and settling chamber" width="1400" height="714" style="width:100%;height:auto;border-radius:3px;background:#fff;display:block"><figcaption>Facility schematic: coolant from a centrifugal blower passes through the porous end wall, heated from outside by a baffled convective source.</figcaption></figure>
+    <figure style="margin:0"><img src="media/riga-sem-specimens.jpg" alt="SEM images at 60x of four porous specimens: titanium sintered powder, SS316L sintered powder, SS316L wire mesh 80 µm, SS316L wire mesh 100 µm" width="1400" height="1055" style="width:100%;height:auto;border-radius:3px;display:block"><figcaption>SEM (×60) of the four specimens: (a) Ti powder, 60 µm; (b) SS316L powder, 60 µm; (c) SS316L mesh, 80 µm; (d) SS316L mesh, 100 µm.</figcaption></figure>
+  </div>
+  <ul class="plain-list" style="max-width:78ch;margin-bottom:28px">
+    <li><b>Infrared surface mapping.</b> One camera frame through a CaF₂ window captures all nine measurement points at once; the camera was calibrated against a blackbody, with emissivity set per material.</li>
+    <li><b>Steady-state discipline.</b> Each point was accepted only when local temperatures varied by less than ±0.3 °C over 25 s, and every condition was repeated three times.</li>
+    <li><b>Uncertainty.</b> Expanded uncertainty in η of ±5% at the lowest and ±7% at the highest Reynolds number (95% confidence).</li>
+  </ul>
 
   <div class="gallery">
     <figure><img src="media/porous-end-wall.webp" alt="Square grey porous metal plate at the channel end, hand-marked with dimensions and measurement points" width="900" height="1600"><figcaption>Porous end wall with temperature measurement points marked on the plate.</figcaption></figure>
@@ -334,7 +357,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
         <tr><th>Pore diameter, porosity</th><td>60 µm, 30%</td></tr>
         <tr><th>Reynolds numbers</th><td>39,000 · 63,000 · 70,000</td></tr>
         <tr><th>Heating</th><td>Hot-air blower directed at the outer plate face</td></tr>
-        <tr><th>Plate temperature</th><td>Fluke infrared thermometer at marked points</td></tr>
+        <tr><th>Plate temperature</th><td>Fluke infrared measurement through a CaF₂ window at nine marked points</td></tr>
         <tr><th>Flow</th><td>In-line velocity and pressure sensors at channel inlet and outlet</td></tr>
         <tr><th>Interpretation</th><td>Numerical model of the porous plate alongside the measurements</td></tr>
       </table>
@@ -355,9 +378,9 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
 
   <div class="rig-sec" id="rig-b">
   <div class="sec-head">
-    <p class="label">Rig B · ASME Turbo Expo 2026 (GT2026-176271) · ASME Heat Transfer Summer Conference 2026</p>
+    <p class="label">Rig B · presented at ASME Turbo Expo 2026 (GT2026-176271) · ASME Heat Transfer Summer Conference 2026 · extended for AIAA SciTech</p>
     <h2>Closed-loop aerothermal platform: LabJack control and transient response</h2>
-    <p>Rig A measured steady cooling. Rig B asks how fast a porous wall responds when the heat load or coolant flow changes, and whether a learned model can adjust the flow before the wall overheats.</p>
+    <p>Rig A measured steady cooling. Rig B asks how fast a porous wall responds when the heat load or coolant flow changes, and whether a learned model can adjust the flow before the wall overheats. I presented it at Turbo Expo 2026 and am refining the measurements for an AIAA SciTech paper.</p>
   </div>
   <div class="two">
     <div class="panel">
@@ -403,11 +426,11 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
     </div>
     <div>
       <ul class="plain-list" style="margin-top:0">
-        <li><b>Test section.</b> Porous SS316L and titanium plates mounted on a 6061-T6511 aluminum block with embedded cartridge heaters. An ITC temperature controller and a solid-state relay regulate the heaters, so the heat input is repeatable.</li>
-        <li><b>Instrumentation.</b> Adhesive K-type thermocouples at fixed positions on the plate surface (17.28 mm spacing) and a differential pressure transducer across the plate.</li>
-        <li><b>LabJack control programming.</b> A LabJack T7, connected to the computer over Ethernet, logs the sensors and outputs the PWM signal that drives the blower through a MOSFET board. I programmed the acquisition and control so one script logs temperature and pressure and sets the coolant flow in a closed loop.</li>
-        <li><b>Transient response.</b> Step changes in fan speed gave a thermal time constant of <b>48 ± 2.3 s</b> for the titanium plates (HT2026), which sets how fast a controller must act.</li>
-        <li><b>Predictive control.</b> A supervised model trained on the measured data predicts the surface-temperature rise and adjusts the cooling-air flow before overshoot, instead of reacting after it (GT2026-176271).</li>
+        <li><b>Test section.</b> Porous SS316L and titanium plates mounted on a 6061-T6511 aluminum block with two 250 W cartridge heaters (500 W total). An Inkbird ITC-308 controller and an OMEGA solid-state relay hold the block at 345 K, so the hot-side boundary condition is repeatable.</li>
+        <li><b>Instrumentation.</b> Adhesive K-type thermocouples at fixed positions on the plate surface (17.28 mm spacing), wired differentially for low noise, plus coolant-temperature and pressure-drop measurement.</li>
+        <li><b>LabJack control programming.</b> A LabJack T7 Pro (24-bit) on a static-IP Ethernet link logs the sensors at 10–50 Hz and outputs the PWM signal that drives a 12 V blower through an MKS MOSFET module. I wrote the Python (LJM) control code: it maps the surface-temperature error to PWM duty cycle and logs every channel, closing the loop in one script.</li>
+        <li><b>Transient response.</b> Step tests gave a thermal time constant of <b>48 ± 2.3 s</b> for the titanium plates, with 5% and 2% settling times of 201 ± 10 s and 267 ± 13 s. This sets how fast a controller must act.</li>
+        <li><b>Toward predictive control.</b> A model trained on the measured data predicts the surface-temperature rise so the blower can act before overshoot (GT2026-176271). For AIAA SciTech I am extending it to a physics-informed neural network constrained by the Darcy–Forchheimer and LTNE equations.</li>
       </ul>
       <p style="margin-top:16px"><a href="https://doi.org/10.1115/GT2026-176271" target="_blank" rel="noopener">GT2026-176271 paper ↗</a> · <a href="current-work.html">Where this led: the data-center test vehicle →</a></p>
     </div>
