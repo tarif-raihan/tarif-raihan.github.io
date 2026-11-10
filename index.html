@@ -204,6 +204,11 @@ img,video{max-width:100%}
 // Old one-page links (e.g. from Google Sites embeds) open the matching page.
 (function(){var m={arc:'research.html',next:'research.html#next',experiment:'experiment.html',models:'current-work.html','ttv-t':'current-work.html#ttv-t','rot-t':'current-work.html#rot-t',publications:'publications.html',funding:'funding.html',teaching:'teaching.html',background:'background.html',contact:'contact.html'};var h=location.hash.slice(1);if(m[h])location.replace(m[h]);})();
 </script>
+<script>
+// Inside Google Sites (an iframe), Google shows the menu; hide this site's own menu to avoid two rows.
+if (window.self !== window.top) document.documentElement.classList.add("embedded");
+</script>
+<style>html.embedded .bar{display:none}</style>
 </head>
 <body>
 <header class="bar"><div class="bar-in">
