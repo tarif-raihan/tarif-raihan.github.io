@@ -205,6 +205,38 @@ img,video{max-width:100%}
 if (window.self !== window.top) document.documentElement.classList.add("embedded");
 </script>
 <style>html.embedded .bar{display:none}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}</style>
+<style id="polish">
+/* readability pass: no text below ~12.8px, clearer captions */
+.label{font-size:.8rem}
+.stage dt{font-size:.78rem}
+.stage .status,.status{font-size:.76rem}
+.pill{font-size:.76rem}
+.rigs i{font-size:.8rem}
+.bar nav a{font-size:.82rem}
+.stage dt{font-size:.8rem}
+.pill,.stage .status,.status{font-size:.8rem}
+figcaption{font-size:.9rem;line-height:1.5}
+.note{font-size:.92rem}
+/* schematics: fit the box on tablet/desktop; swipe on phones with a visible hint */
+.schem-wrap svg{min-width:0}
+.schem text{font-size:12px}
+.schem .sm{font-size:10.5px}
+.swipe-hint{display:none;font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:6px}
+@media (max-width:640px){.schem-wrap svg{min-width:560px}.swipe-hint{display:block}}
+/* progressive disclosure */
+details.more{margin-top:14px;border-top:1px solid var(--rule);padding-top:10px}
+details.more summary{cursor:pointer;font-family:var(--mono);font-size:.85rem;color:var(--coolant)}
+details.more[open] summary{margin-bottom:8px}
+/* phone menu: wrap instead of a hidden sideways scroll */
+@media (max-width:700px){
+  .bar{position:static}
+  .bar-in{flex-wrap:wrap;gap:4px 16px;padding-block:8px}
+  .bar .who{display:block !important}
+  .bar nav{overflow:visible;width:100%}
+  .bar ul{flex-wrap:wrap;gap:4px 14px;white-space:normal}
+  .bar nav a{font-size:.82rem;line-height:1.9}
+}
+</style>
 </head>
 <body>
 <header class="bar"><div class="bar-in">
@@ -229,7 +261,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
   <div class="sec-head">
     <p class="label">How the work developed</p>
     <h1 id="arc-h">From plant floors to porous walls to closed-loop control</h1>
-    <p>Each stage below left a question that the next one picked up. Results are listed with the paper or report they come from; work that is still in progress is marked.</p>
+    <p>Each stage left a question that the next one took up. Every result is tied to the paper or report it comes from, and unfinished work is marked.</p>
   </div>
 
   <div class="arc">
@@ -238,21 +270,21 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
       <div>
         <h3>Energy and safety in working plants</h3>
         <dl>
-          <dt>Did</dt><dd>After a B.Sc. in Mechanical Engineering at CUET (2014), ran energy-efficiency and emission-reduction projects at Fabulous Fashions Ltd. under ISO 50001, ISO 14001 and LEED v4, including boiler and generator efficiency tests and a solar PV system supplying 10% of plant energy. Led a team of 12 engineers and technicians.</dd>
-          <dt>Then</dt><dd>With the Bangladesh Accord (2018–2020), inspected 467 garment factories for fire and building safety, wrote corrective action plans and followed them to closure.</dd>
-          <dt>Led to</dt><dd>An M.Sc. in Renewable Energy Systems in Germany, moving from running energy projects to modeling the systems behind them.</dd>
+          <dt>Did</dt><dd>After a B.Sc. in Mechanical Engineering at CUET (2014), ran energy-efficiency and emission-reduction projects at Fabulous Fashions Ltd. under ISO 50001, ISO 14001 and LEED v4. The work included boiler and generator efficiency tests and a solar PV system that supplied 10% of plant energy. Led a team of 12 engineers and technicians.</dd>
+          <dt>Then</dt><dd>With the Bangladesh Accord (2018–2020), inspected 467 garment factories for fire and building safety, then wrote corrective action plans and followed them to closure.</dd>
+          <dt>Led to</dt><dd>An M.Sc. in Renewable Energy Systems in Germany: from running energy projects to modeling the systems behind them.</dd>
         </dl>
       </div>
     </article>
 
     <article class="stage">
-      <div class="when"><span class="yrs">–2022</span><span class="where">TH Ingolstadt, Germany · M.Sc.</span></div>
+      <div class="when"><span class="yrs">2020–2022</span><span class="where">TH Ingolstadt, Germany · M.Sc.</span></div>
       <div>
         <h3>Heat-pump sizing and switching control</h3>
         <dl>
           <dt>Did</dt><dd>Modeled a hybrid air-source and ground-source heat pump in MATLAB/Simulink (CARNOT toolbox) to size the heat sources and set the bivalent-point switching strategy. Advisor: Prof. Tobias Schrag.</dd>
           <dt>Showed</dt><dd>Better sizing cut the required borehole depth by 21% (70 m to 55 m). At equal borehole depth, the switching strategy alone raised the annual performance factor by 15% (2.98 to 3.42). <span class="mono">Int. J. Energy Efficiency Eng., 2026</span></dd>
-          <dt>Led to</dt><dd>Treating control as a design variable, not an afterthought. That idea returns in the transient and data-center work below.</dd>
+          <dt>Led to</dt><dd>Treating control as a design choice, not an afterthought. The idea returns in the transient and data-center work below.</dd>
         </dl>
       </div>
     </article>
@@ -263,7 +295,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
         <h3>Where industrial heat is actually lost</h3>
         <dl>
           <dt>Did</dt><dd>Assessed 36 manufacturing plants on site and led 14 of the assessments. Each report gave about 8–9 recommendations on HVAC, compressed air, motors, lighting and waste-heat recovery. Reviewed 38 ITAC and BTAC reports for assumptions, savings calculations and feasibility.</dd>
-          <dt>Showed</dt><dd>Clients reported implementing measures such as lighting upgrades, door replacement and a more efficient air compressor. Earned the Certified Energy Manager credential (2025).</dd>
+          <dt>Showed</dt><dd>Clients reported carrying out measures such as lighting upgrades, door replacement and a more efficient air compressor. Earned the Certified Energy Manager credential (2025).</dd>
           <dt>Led to</dt><dd>A practical test for every later project: what evidence would a plant or operator need before acting on this result?</dd>
         </dl>
       </div>
@@ -274,7 +306,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
       <div>
         <h3>Measuring transpiration cooling through sintered metals</h3>
         <dl>
-          <dt>Problem</dt><dd>Turbine trailing edges and aerospace hot sections run close to material limits. Transpiration cooling pushes coolant through a porous wall, but the separate effects of wall material and pore structure were not well resolved in test data.</dd>
+          <dt>Problem</dt><dd>Turbine trailing edges and aerospace hot sections run close to their material limits. Transpiration cooling pushes coolant through a porous wall, but test data had not separated the effect of the wall material from the effect of its pore structure.</dd>
           <dt>Did</dt><dd>Designed and ran tests in a two-pass square channel (hydraulic diameter 0.14 m) with a porous end wall at Reynolds numbers of 39,000–70,000. Compared sintered SS316L with titanium, sintered powder with wire mesh, and 80 µm with 100 µm mesh pores. Each campaign used sensor calibration, energy-balance checks, repeated runs and uncertainty analysis.</dd>
           <dt>Showed</dt><dd>Titanium plates performed better than SS316L at every Reynolds number tested, and the gain from higher flow flattened between Re 63,000 and 70,000 (<a href="experiment.html">see the data</a>). <span class="mono">GT2025, HT2025, IMECE2025</span></dd>
           <dt>Also</dt><dd>Co-author on gas-turbine internal-cooling studies of pin-fin and dimpled channels. <span class="mono">IJECE 2025, 2026</span></dd>
@@ -315,7 +347,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
           <dt>Problem</dt><dd>Processor heat flux keeps climbing, and liquid cold plates spend pumping energy where the heat load is low. The porous-wall physics from turbine work applies directly.</dd>
           <dt>Did</dt><dd>Wrote the full proposal for a $50,000 UWM Research Foundation Catalyst grant (awarded June 2026; PI Prof. Amano) and lead its research: graded versus uniform porous cooling plates compared at equal pumping power, targeting 200 W/cm², with industry partners Eaton and RPI Inc. Designing the bench-scale test vehicle and additively manufactured porous copper cold plates (<a href="current-work.html">details</a>).</dd>
           <dt>Also</dt><dd>First author of a scoping review (136 references) proposing a six-layer causal control architecture that links physics-informed neural networks with physics-informed reinforcement learning. <span class="mono">ASME Open J. Eng., revision submitted</span></dd>
-          <dt class="open">Not yet shown</dt><dd>Hardware validation is in progress. No measured control comparison or achieved heat flux is claimed yet.</dd>
+          <dt class="open">Next milestone</dt><dd>Validation runs on the hardware, then a measured comparison of control strategies. No achieved heat flux or control result is claimed yet.</dd>
         </dl>
       </div>
     </article>
@@ -332,7 +364,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
     <div class="thrust">
       <span class="label">Thrust 1 · closures</span>
       <h3>Identifiable LTNE closures for sintered and printed metals</h3>
-      <p>Most interstitial heat-transfer correlations come from packed beds and metal foams. A transient test cell with step and periodic heat loads, read through differentiable inverse models, will estimate them for sintered and printed plates with confidence bounds. An NSF CBET proposal on this thrust is drafted.</p>
+      <p>Most interstitial heat-transfer correlations come from packed beds and metal foams, not from sintered or printed plates. A transient test cell with step and periodic heat loads, read through differentiable inverse models, will measure them with confidence bounds. An NSF CBET proposal on this thrust is drafted.</p>
     </div>
     <div class="thrust">
       <span class="label">Thrust 2 · design and control</span>
@@ -342,7 +374,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
     <div class="thrust">
       <span class="label">Thrust 3 · systems</span>
       <h3>Recovering low-grade heat from liquid-cooled systems</h3>
-      <p>Warm-water cooling raises coolant return temperature. Combining cold-plate data with heat-pump and heat-exchanger models and plant-assessment experience, this thrust asks when that heat can serve process or building heating, and which controls make recovery reliable.</p>
+      <p>Warm-water cooling raises the coolant return temperature, which makes the waste heat more useful. Using cold-plate data, heat-pump and heat-exchanger models, and my plant-assessment experience, this thrust asks when that heat can serve process or building heating, and which controls make recovery reliable.</p>
     </div>
   </div>
   <p class="read" style="margin-top:28px;color:var(--muted)">I have not yet worked on two-phase flow. I would add phase change in porous structures through collaboration, and only after the single-phase results are solid.</p>

@@ -205,6 +205,38 @@ img,video{max-width:100%}
 if (window.self !== window.top) document.documentElement.classList.add("embedded");
 </script>
 <style>html.embedded .bar{display:none}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}</style>
+<style id="polish">
+/* readability pass: no text below ~12.8px, clearer captions */
+.label{font-size:.8rem}
+.stage dt{font-size:.78rem}
+.stage .status,.status{font-size:.76rem}
+.pill{font-size:.76rem}
+.rigs i{font-size:.8rem}
+.bar nav a{font-size:.82rem}
+.stage dt{font-size:.8rem}
+.pill,.stage .status,.status{font-size:.8rem}
+figcaption{font-size:.9rem;line-height:1.5}
+.note{font-size:.92rem}
+/* schematics: fit the box on tablet/desktop; swipe on phones with a visible hint */
+.schem-wrap svg{min-width:0}
+.schem text{font-size:12px}
+.schem .sm{font-size:10.5px}
+.swipe-hint{display:none;font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:6px}
+@media (max-width:640px){.schem-wrap svg{min-width:560px}.swipe-hint{display:block}}
+/* progressive disclosure */
+details.more{margin-top:14px;border-top:1px solid var(--rule);padding-top:10px}
+details.more summary{cursor:pointer;font-family:var(--mono);font-size:.85rem;color:var(--coolant)}
+details.more[open] summary{margin-bottom:8px}
+/* phone menu: wrap instead of a hidden sideways scroll */
+@media (max-width:700px){
+  .bar{position:static}
+  .bar-in{flex-wrap:wrap;gap:4px 16px;padding-block:8px}
+  .bar .who{display:block !important}
+  .bar nav{overflow:visible;width:100%}
+  .bar ul{flex-wrap:wrap;gap:4px 14px;white-space:normal}
+  .bar nav a{font-size:.82rem;line-height:1.9}
+}
+</style>
 </head>
 <body>
 <header class="bar"><div class="bar-in">
@@ -238,7 +270,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
     </div>
     <div class="read">
       <h3>Undergraduate research</h3>
-      <p style="margin-top:8px">Mentored seven undergraduate researchers in UWM's SURF program in calibration, experiment design, model checking and data analysis.</p>
+      <p style="margin-top:8px">Mentored seven undergraduate researchers in UWM’s SURF program, covering calibration, experiment design, model checking and data analysis.</p>
     </div>
     <div class="read">
       <h3>Energy-assessment training</h3>

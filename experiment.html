@@ -232,7 +232,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
 .rigs b{font-family:var(--display);font-weight:620}
 .rigs span{font-size:.9rem;color:var(--muted);line-height:1.4}
 .photo-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
-@media (max-width:860px){.photo-grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.photo-grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .record{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:8px 0 28px}
 .record div{border-top:3px solid var(--coolant);background:var(--surface);padding:14px 14px 16px;border-radius:0 0 3px 3px}
 .record b{display:block;font-family:var(--display);font-size:1.45rem;font-weight:650;color:var(--ink);font-variant-numeric:tabular-nums}
@@ -242,6 +242,38 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
 .rig-sec{padding-top:40px;margin-top:40px;border-top:1px solid var(--rule)}
 @media (max-width:860px){.news-item{grid-template-columns:minmax(0,1fr)}.photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rigs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.photo-grid,.badge-row,.rigs{grid-template-columns:minmax(0,1fr)}.yearlist li{grid-template-columns:minmax(0,1fr)}}
+</style>
+<style id="polish">
+/* readability pass: no text below ~12.8px, clearer captions */
+.label{font-size:.8rem}
+.stage dt{font-size:.78rem}
+.stage .status,.status{font-size:.76rem}
+.pill{font-size:.76rem}
+.rigs i{font-size:.8rem}
+.bar nav a{font-size:.82rem}
+.stage dt{font-size:.8rem}
+.pill,.stage .status,.status{font-size:.8rem}
+figcaption{font-size:.9rem;line-height:1.5}
+.note{font-size:.92rem}
+/* schematics: fit the box on tablet/desktop; swipe on phones with a visible hint */
+.schem-wrap svg{min-width:0}
+.schem text{font-size:12px}
+.schem .sm{font-size:10.5px}
+.swipe-hint{display:none;font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:6px}
+@media (max-width:640px){.schem-wrap svg{min-width:560px}.swipe-hint{display:block}}
+/* progressive disclosure */
+details.more{margin-top:14px;border-top:1px solid var(--rule);padding-top:10px}
+details.more summary{cursor:pointer;font-family:var(--mono);font-size:.85rem;color:var(--coolant)}
+details.more[open] summary{margin-bottom:8px}
+/* phone menu: wrap instead of a hidden sideways scroll */
+@media (max-width:700px){
+  .bar{position:static}
+  .bar-in{flex-wrap:wrap;gap:4px 16px;padding-block:8px}
+  .bar .who{display:block !important}
+  .bar nav{overflow:visible;width:100%}
+  .bar ul{flex-wrap:wrap;gap:4px 14px;white-space:normal}
+  .bar nav a{font-size:.82rem;line-height:1.9}
+}
 </style>
 </head>
 <body>
@@ -288,7 +320,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
   <div class="sec-head">
     <p class="label">Rig A · ASME Turbo Expo 2025 · ASME Heat Transfer Summer Conference 2025 · IMECE 2025</p>
     <h2>Stationary transpiration channel</h2>
-    <p>A two-pass channel with a porous end wall, representing a turbine trailing edge cooled through a porous wall. Three specimen studies ran on this rig:</p>
+    <p>A two-pass channel with a porous end wall that stands in for a transpiration-cooled turbine trailing edge. Three specimen studies ran on this rig:</p>
     <ul class="plain-list" style="max-width:68ch">
       <li><b>SS316L vs. titanium</b> (GT2025-151170): titanium performed better at every Reynolds number tested; at Re 70,000 its η was 37.5% higher than SS316L (0.88 vs. 0.64).</li>
       <li><b>Sintered wire mesh vs. sintered powder</b> (SHTC 2025, HT2025-156087): the powder’s uniform pore structure cooled better than the direction-dependent wire mesh.</li>
@@ -300,14 +332,14 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
     <figure style="margin:0"><img src="media/riga-sem-specimens.jpg" alt="SEM images at 60x of four porous specimens: titanium sintered powder, SS316L sintered powder, SS316L wire mesh 80 µm, SS316L wire mesh 100 µm" width="1400" height="1055" style="width:100%;height:auto;border-radius:3px;display:block"><figcaption>SEM (×60) of the four specimens: (a) Ti powder, 60 µm; (b) SS316L powder, 60 µm; (c) SS316L mesh, 80 µm; (d) SS316L mesh, 100 µm.</figcaption></figure>
   </div>
   <ul class="plain-list" style="max-width:78ch;margin-bottom:28px">
-    <li><b>Infrared surface mapping.</b> One camera frame through a CaF₂ window captures all nine measurement points at once; the camera was calibrated against a blackbody, with emissivity set per material.</li>
-    <li><b>Steady-state discipline.</b> Each point was accepted only when local temperatures varied by less than ±0.3 °C over 25 s, and every condition was repeated three times.</li>
+    <li><b>Infrared surface mapping.</b> One camera frame through a CaF₂ window captures all nine measurement points at once. The camera was calibrated against a blackbody, with emissivity set for each material.</li>
+    <li><b>Steady-state discipline.</b> A point was accepted only when local temperatures stayed within ±0.3 °C for 25 s. Every condition was repeated three times.</li>
     <li><b>Uncertainty.</b> Expanded uncertainty in η of ±5% at the lowest and ±7% at the highest Reynolds number (95% confidence).</li>
   </ul>
 
   <div class="gallery">
     <figure><img src="media/porous-end-wall.webp" alt="Square grey porous metal plate at the channel end, hand-marked with dimensions and measurement points" width="900" height="1600"><figcaption>Porous end wall with temperature measurement points marked on the plate.</figcaption></figure>
-    <figure><img src="media/test-section.webp" alt="Porous plate sealing the end of the transparent channel, viewed along the channel" width="900" height="1600"><figcaption>The plate seals the end of the clear channel. Coolant air passes through it from inside.</figcaption></figure>
+    <figure><img src="media/test-section.webp" alt="Porous plate sealing the end of the transparent channel, viewed along the channel" width="900" height="1600"><figcaption>The plate seals the end of the clear channel; coolant air passes through it from inside.</figcaption></figure>
     <figure><img src="media/optical-access.webp" alt="Circular port with a red gasket on the end of the channel" width="900" height="1600"><figcaption>Circular access port on the channel end.</figcaption></figure>
     <figure><img src="media/presentation.webp" alt="Md Tarif Raihan at a lectern pointing to a slide of simulated temperature fields for titanium at two Reynolds numbers" width="1200" height="1600"><figcaption>Presenting GT2025-151170, June 2025. The slide shows simulated titanium temperature fields at Re 63,000 and 70,000.</figcaption></figure>
   </div>
@@ -385,7 +417,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
   <div class="two">
     <div class="panel">
       <div class="schem-wrap">
-      <svg class="schem" style="min-width:0" viewBox="0 0 600 340" role="img" aria-labelledby="rigb-title">
+      <svg class="schem" viewBox="0 0 600 340" role="img" aria-labelledby="rigb-title">
         <title id="rigb-title">Schematic of the closed-loop aerothermal platform: a PWM blower supplies cooling air through a porous plate on a cartridge-heated aluminum block; surface thermocouples and a differential pressure transducer feed a LabJack T7; a Python model predicts surface temperature and sets the fan speed</title>
         <defs>
           <pattern id="pores-b" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="var(--surface)"/><circle cx="2" cy="2" r="1.3" fill="var(--muted)"/><circle cx="6" cy="6" r="1.3" fill="var(--muted)"/></pattern>
@@ -400,7 +432,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
         <text x="280" y="140" text-anchor="middle">porous plate · SS316L or Ti</text>
         <rect class="hot" x="180" y="166" width="200" height="56" rx="2"/>
         <text x="280" y="190" text-anchor="middle">6061 aluminum block</text>
-        <text class="sm" x="280" y="206" text-anchor="middle">cartridge heaters · ITC controller</text>
+        <text class="sm" x="280" y="206" text-anchor="middle">cartridge heaters</text>
         <path class="ink" d="M180,222 V258 H380 V222"/>
         <text class="sm" x="280" y="250" text-anchor="middle">air plenum</text>
         <path class="pipe" d="M230,150 V112 M280,150 V112 M330,150 V112" marker-end="url(#ahb)"/>
@@ -408,7 +440,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
         <circle cx="210" cy="158" r="4" fill="var(--heat)"/><circle cx="350" cy="158" r="4" fill="var(--heat)"/>
         <text class="sm" x="388" y="160">K-type TCs on surface</text>
         <text class="sm" x="388" y="244">ΔP transducer</text>
-        <rect class="box" x="450" y="40" width="130" height="50" rx="3"/>
+        <rect class="box" x="438" y="40" width="154" height="50" rx="3"/>
         <text x="515" y="60" text-anchor="middle">LabJack T7</text>
         <text class="sm" x="515" y="76" text-anchor="middle">acquisition · PWM out</text>
         <rect class="cool" x="450" y="250" width="130" height="62" rx="3"/>
@@ -422,6 +454,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
         <text class="sm" x="200" y="304">PWM command to fan</text>
       </svg>
       </div>
+      <p class="swipe-hint" aria-hidden="true">← Swipe to see the whole diagram →</p>
       <p class="note">Schematic, not to scale. Photos of the actual rig are below.</p>
     </div>
     <div>

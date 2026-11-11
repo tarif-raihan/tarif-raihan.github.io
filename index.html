@@ -58,7 +58,7 @@ section:last-of-type{border-bottom:0}
 .sec-head p{color:var(--muted);max-width:var(--read)}
 
 /* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:center}
 .hero .q{font-family:var(--display);font-stretch:104%;font-weight:560;font-size:clamp(1.75rem,4.1vw,2.85rem);line-height:1.12;letter-spacing:-.015em;margin-block:14px 22px}
 .hero .q em{font-style:normal;color:var(--coolant)}
 .hero .lede{font-size:1.15rem;max-width:58ch}
@@ -189,13 +189,22 @@ img,video{max-width:100%}
 .bar nav a[aria-current="page"]{color:var(--coolant);text-decoration:underline;text-underline-offset:.35em}
 .bar .who[aria-current="page"]{color:var(--ink)}
 .sec-head h1{font-size:clamp(1.6rem,3.2vw,2.1rem);font-weight:650;letter-spacing:-.01em}
-.pages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:none}
+.steps a{display:grid;gap:8px;align-content:start;height:100%;padding:22px;border:1px solid var(--rule);border-top:4px solid var(--coolant);border-radius:4px;background:var(--surface);color:var(--ink);text-decoration:none}
+.steps a:hover{border-color:var(--coolant)}
+.steps i{font-style:normal;font-family:var(--mono);font-size:.82rem;color:var(--coolant);letter-spacing:.04em}
+.steps b{font-family:var(--display);font-weight:640;font-size:1.2rem;line-height:1.2}
+.steps span{color:var(--muted);font-size:.97rem;line-height:1.5}
+.more-h{font-size:1.25rem;margin:44px 0 14px}
+@media (max-width:1000px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.steps{grid-template-columns:minmax(0,1fr)}}
+.pages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .pages a{display:grid;gap:6px;align-content:start;padding:20px;border:1px solid var(--rule);border-radius:4px;background:var(--surface);color:var(--ink);text-decoration:none}
 .pages a:hover{border-color:var(--coolant)}
 .pages a b{font-family:var(--display);font-weight:620;font-size:1.1rem}
 .pages a span{color:var(--muted);font-size:.95rem;line-height:1.45}
 .pages a i{font-style:normal;font-family:var(--mono);font-size:.8rem;color:var(--coolant)}
-@media (max-width:1000px){.pages{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
 @media (max-width:860px){.pages{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.pages{grid-template-columns:minmax(0,1fr)}}
 </style>
@@ -210,6 +219,38 @@ img,video{max-width:100%}
 if (window.self !== window.top) document.documentElement.classList.add("embedded");
 </script>
 <style>html.embedded .bar{display:none}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}</style>
+<style id="polish">
+/* readability pass: no text below ~12.8px, clearer captions */
+.label{font-size:.8rem}
+.stage dt{font-size:.78rem}
+.stage .status,.status{font-size:.76rem}
+.pill{font-size:.76rem}
+.rigs i{font-size:.8rem}
+.bar nav a{font-size:.82rem}
+.stage dt{font-size:.8rem}
+.pill,.stage .status,.status{font-size:.8rem}
+figcaption{font-size:.9rem;line-height:1.5}
+.note{font-size:.92rem}
+/* schematics: fit the box on tablet/desktop; swipe on phones with a visible hint */
+.schem-wrap svg{min-width:0}
+.schem text{font-size:12px}
+.schem .sm{font-size:10.5px}
+.swipe-hint{display:none;font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:6px}
+@media (max-width:640px){.schem-wrap svg{min-width:560px}.swipe-hint{display:block}}
+/* progressive disclosure */
+details.more{margin-top:14px;border-top:1px solid var(--rule);padding-top:10px}
+details.more summary{cursor:pointer;font-family:var(--mono);font-size:.85rem;color:var(--coolant)}
+details.more[open] summary{margin-bottom:8px}
+/* phone menu: wrap instead of a hidden sideways scroll */
+@media (max-width:700px){
+  .bar{position:static}
+  .bar-in{flex-wrap:wrap;gap:4px 16px;padding-block:8px}
+  .bar .who{display:block !important}
+  .bar nav{overflow:visible;width:100%}
+  .bar ul{flex-wrap:wrap;gap:4px 14px;white-space:normal}
+  .bar nav a{font-size:.82rem;line-height:1.9}
+}
+</style>
 </head>
 <body>
 <header class="bar"><div class="bar-in">
@@ -234,7 +275,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
   <div>
     <p class="label" id="hero-name">Md Tarif Raihan · Ph.D. candidate, Mechanical Engineering · University of Wisconsin–Milwaukee</p>
     <h1 class="q">Which properties of a porous metal wall set its temperature, and how much <em>pumping power</em> does it take to hold it there?</h1>
-    <p class="lede">I work on this question in two places where heat loads keep rising: transpiration-cooled turbine and aerospace parts, and liquid cold plates for data-center processors. I build the experiment, write the model, check one against the other, and only then use the model for control.</p>
+    <p class="lede">I study it in two places where heat loads keep climbing: turbine and aerospace parts cooled through porous walls, and liquid cold plates for data-center chips. I build the experiment, write the model, test one against the other, and only then let the model control the cooling.</p>
     <div class="facts">
       <div><b>Ph.D. expected May 2027</b><span>Advisor: Prof. Ryoichi S. Amano, UWM</span></div>
       <div><b>First-author ASME journal paper</b><span>J. Energy Resources Technology, Part A, 2026</span></div>
@@ -257,20 +298,24 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
 
 <section id="explore" aria-labelledby="explore-h">
   <div class="sec-head">
-    <p class="label">Explore</p>
-    <h2 id="explore-h">The work, page by page</h2>
+    <p class="label">How I work</p>
+    <h2 id="explore-h">Measure, explain, control, apply</h2>
+    <p>Four steps run through all of my research. Each one links to the work behind it.</p>
   </div>
-  <nav class="pages" aria-label="Site pages">
-    <a href="research.html"><i>Research</i><b>How the work developed</b><span>Seven stages from plant floors to porous walls to closed-loop control, and where the work goes next.</span></a>
-    <a href="experiment.html"><i>Experiments</i><b>Four test rigs</b><span>Steady and transient transpiration cooling, LabJack closed-loop control, liquid cooling, and rotating-channel tests.</span></a>
-    <a href="current-work.html"><i>Current work</i><b>Models and control on hardware</b><span>The data-center thermal test vehicle, the rotating transpiration-cooling rig, and the CIBERCATSS inverse model.</span></a>
-    <a href="publications.html"><i>Publications</i><b>Research record</b><span>Journal articles, ASME conference papers, a book chapter, and manuscripts in review.</span></a>
-    <a href="funding.html"><i>Funding</i><b>Proposals and awards</b><span>A $50,000 Catalyst grant I wrote and lead, and DOE proposals I helped develop.</span></a>
-    <a href="awards.html"><i>Awards</i><b>Awards and certificates</b><span>2026 Research Achievement Award, Chancellor’s Award, Catalyst Grant, CEM.</span></a>
-    <a href="news.html"><i>News</i><b>News and gallery</b><span>Grant and award stories, conference photos, and milestones.</span></a>
-    <a href="teaching.html"><i>Teaching</i><b>Fluid mechanics and mentoring</b><span>ME 320 instruction rated 4.56/5 and 4.83/5, and undergraduate research mentoring.</span></a>
-    <a href="background.html"><i>Background</i><b>Education and experience</b><span>Degrees, industry and research roles, awards, and service.</span></a>
-    <a href="contact.html"><i>Contact</i><b>Get in touch</b><span>Email, LinkedIn, Google Scholar, GitHub, and the CV.</span></a>
+  <ol class="steps">
+    <li><a href="experiment.html"><i>1 · Measure</i><b>Build the experiment</b><span>Four test rigs, four porous specimens, Reynolds numbers from 38,000 to 70,000, and infrared surface mapping.</span></a></li>
+    <li><a href="research.html"><i>2 · Explain</i><b>Model what the data show</b><span>Physics models checked against my own measurements. Result: solid conductivity matters most.</span></a></li>
+    <li><a href="experiment.html#rig-b"><i>3 · Control</i><b>Let the model act</b><span>Python control code on a LabJack drives the coolant flow; the next step is a physics-informed neural network.</span></a></li>
+    <li><a href="current-work.html"><i>4 · Apply</i><b>Cool high-power electronics</b><span>The same physics, applied to data-center liquid cooling in a $50,000 Catalyst project I wrote and lead.</span></a></li>
+  </ol>
+  <h2 class="more-h">More about my work</h2>
+  <nav class="pages" aria-label="More pages">
+    <a href="publications.html"><i>Publications</i><b>Papers and status</b><span>Journal articles, ASME conference papers, a book chapter, and work in review.</span></a>
+    <a href="awards.html"><i>Awards</i><b>Recognition</b><span>Research Achievement Awards, the Chancellor’s Award, the Catalyst Grant, and the CEM credential.</span></a>
+    <a href="news.html"><i>News</i><b>News and photos</b><span>Grant and award stories, conference talks, and the lab.</span></a>
+    <a href="funding.html"><i>Funding</i><b>Proposals</b><span>The Catalyst grant I wrote and lead, and DOE proposals I helped develop.</span></a>
+    <a href="teaching.html"><i>Teaching</i><b>Fluid mechanics</b><span>ME 320 instruction rated 4.56/5 and 4.83/5, and student mentoring.</span></a>
+    <a href="background.html"><i>Background</i><b>Education and experience</b><span>Degrees, industry and research roles, and service.</span></a>
   </nav>
 </section>
 
