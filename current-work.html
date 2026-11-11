@@ -84,6 +84,7 @@ figcaption{font-size:.86rem;color:var(--muted);margin-top:8px;line-height:1.45}
 .stage dd{margin:0}
 .stage dt.open{color:var(--heat)}
 .stage .status{display:inline-block;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;padding:2px 8px;border-radius:2px;background:var(--heat-soft);color:var(--heat);margin-left:8px;vertical-align:.15em;text-transform:uppercase}
+.panel .status,.sec-head .status{display:inline-block;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;padding:2px 8px;border-radius:2px;background:var(--heat-soft);color:var(--heat);margin-left:8px;vertical-align:.15em;text-transform:uppercase}
 
 /* evidence */
 .gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
@@ -199,7 +200,7 @@ img,video{max-width:100%}
 @media (max-width:560px){.pages{grid-template-columns:minmax(0,1fr)}}
 </style>
 <title>Current Work | Md Tarif Raihan</title>
-<meta name="description" content="The data-center liquid-cooling test vehicle and the rotating transpiration-cooling rig.">
+<meta name="description" content="The data-center liquid-cooling test vehicle, the rotating transpiration-cooling rig, and the NSF CIBERCATSS differentiable inverse model.">
 <script>
 // Inside Google Sites (an iframe), Google's menu is the only menu; hide this site's own menu.
 if (window.self !== window.top) document.documentElement.classList.add("embedded");
@@ -229,7 +230,7 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
   <div class="sec-head">
     <p class="label">Current work</p>
     <h1 id="models-h">Models that a controller can trust, tested on hardware</h1>
-    <p>Two platforms that carry the porous-media work forward: a liquid-cooling test vehicle for the Catalyst project, where the models, the transient results and the control approach meet, and a rotating rig that brings transpiration cooling into a spinning turbine-blade channel.</p>
+    <p>Two platforms that carry the porous-media work forward: a liquid-cooling test vehicle for the Catalyst project, where the models, the transient results and the control approach meet, and a rotating rig that brings transpiration cooling into a spinning turbine-blade channel. Below them, the <a href="#cibercatss">NSF CIBERCATSS inverse model</a> that reads porous-wall structure from temperature data.</p>
   </div>
 
   <div class="two">
@@ -322,6 +323,85 @@ if (window.self !== window.top) document.documentElement.classList.add("embedded
       <p class="note">Design schematic, not to scale. No transpiration tests have been run on this rig yet.</p>
       <p style="margin-top:12px">The lab's rotating two-pass channel models the mid-chord cooling passage of a turbine blade, but its solid heated wall cannot pass coolant. The redesign replaces that wall with a porous titanium plate heated without contact, catches all the air that passes through it in a sealed hood, and measures pressure drop and blowing ratio while spinning.</p>
       <p>The aim is first data on how Coriolis and buoyancy effects change transpiration cooling in a rotating channel. We found no such rig in the papers we reviewed. The data will also test the LTNE solvers.</p>
+    </div>
+  </div>
+</section>
+
+<section id="cibercatss" aria-labelledby="cib-h">
+  <div class="sec-head">
+    <p class="label">Summer 2026 · NSF CIBERCATSS</p>
+    <h2 id="cib-h">Reading a porous wall's structure from its temperatures</h2>
+    <p>Mentor: Dr. Tian Zhao. Every transpiration-cooling model I had used treated the porous plate as uniform. Real sintered plates are not. The question for this project: can a differentiable finite-element model work backward from temperature data to how porosity changes through the plate? <span class="status">Paper in preparation</span></p>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <h3>What I built</h3>
+      <ul class="plain-list">
+        <li>A 2-D local thermal non-equilibrium (LTNE) Darcy–Forchheimer model in JAX-FEM: coolant and solid energy equations in one coupled kernel, with the coolant advection term written directly.</li>
+        <li>Newton solve with the Jacobian from automatic differentiation, so no hand-derived linearization.</li>
+        <li>Porosity stored as a field at the quadrature points, so the solver returns exact gradients of any output with respect to the local porosity.</li>
+        <li>An inverse loop: loss between computed and measured temperatures, gradients through the solve (adjoint method), and an Adam optimizer.</li>
+      </ul>
+      <h3 style="margin-top:22px">Verification against an independent solver</h3>
+      <p>Compared with my finite-difference LTNE solver on the same inputs (SS316L powder, Re = 62,000, heated-face flux 38.3 kW/m²). Mean heated-face solid temperature:</p>
+      <table class="spec" style="margin-top:8px">
+        <tr><th>Mesh (thickness × span)</th><td>Finite-difference · JAX-FEM · gap</td></tr>
+        <tr><th>100 × 60</th><td>332.48 K · 327.49 K · 4.99 K</td></tr>
+        <tr><th>200 × 120</th><td>330.05 K · 327.62 K · 2.43 K (0.7%)</td></tr>
+      </table>
+      <p class="note">Refining the JAX-FEM mesh moved its answer by 0.13 K. The finite-difference result moved toward it, so the gap came from first-order upwinding in the older solver.</p>
+      <figure style="margin:14px 0 0"><img src="media/cibercatss-verification.webp" alt="Line chart: finite-difference and JAX-FEM heated-face temperatures converge as the mesh is refined" width="1200" height="922" loading="lazy" style="width:100%;height:auto;border-radius:3px;display:block;background:#fff"><figcaption>Code-to-code check under mesh refinement.</figcaption></figure>
+    </div>
+
+    <div class="panel">
+      <h3>Validation against my experiments</h3>
+      <p>Cooling effectiveness compared point by point with the sintered-powder tests, Re ≈ 38,000–70,000. Injection velocity came from the measured pressure drop.</p>
+      <ul class="plain-list">
+        <li>Titanium powder: within 1.4% at all three Reynolds numbers.</li>
+        <li>SS316L powder: 3.0% at Re = 67,000, but the model over-predicts cooling by 20.1% at Re = 38,000. The error grows as flow drops, which fits uneven coolant spread that a uniform-injection model cannot capture.</li>
+        <li>Woven-mesh plates left out of validation: their permeability was not measured, and the uniform estimate over-predicted their cooling by 12–27%.</li>
+      </ul>
+      <figure style="margin:14px 0 0"><img src="media/cibercatss-validation.webp" alt="Parity plot of predicted versus measured cooling effectiveness; titanium points on the diagonal, one low-flow SS316L point well above the plus or minus 5 percent band" width="1194" height="1200" loading="lazy" style="width:100%;height:auto;border-radius:3px;display:block;background:#fff"><figcaption>Predicted vs. measured effectiveness, with a ±5% band.</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:clamp(24px,4vw,48px)">
+    <div class="panel">
+      <h3>Recovering a graded porosity <span class="status">Synthetic data</span></h3>
+      <p>Twin experiment: impose a known profile ε(z) = ε₀(1 + αz/L) with ε₀ = 0.40 and α = 0.50, generate temperatures, add noise, then recover both numbers starting from a wrong uniform guess (ε₀ = 0.35, α = 0).</p>
+      <table class="spec" style="margin-top:8px">
+        <tr><th>What the model sees</th><td>ε₀ (true 0.40) · α (true 0.50)</td></tr>
+        <tr><th>Full temperature field</th><td>0.400 · 0.510</td></tr>
+        <tr><th>One mean heated-face temperature</th><td>0.433 · 0.102</td></tr>
+      </table>
+      <p class="note">One averaged reading cannot pin down a gradient. My current experiments give averaged readings, so this limit applies to them.</p>
+      <table class="spec" style="margin-top:14px">
+        <tr><th>Noise (K)</th><td>ε₀ error · α error (5 runs each)</td></tr>
+        <tr><th>0.25</th><td>0.9% · 2.7%</td></tr>
+        <tr><th>0.50</th><td>1.8% · 8.5%</td></tr>
+        <tr><th>1.00</th><td>4.2% · 20.5%</td></tr>
+        <tr><th>2.00</th><td>7.4% · 60.1%</td></tr>
+      </table>
+      <figure style="margin:14px 0 0"><img src="media/cibercatss-noise.webp" alt="Recovery error versus measurement noise: mean porosity error stays below 8 percent while gradient error rises to 60 percent at 2 K" width="1200" height="888" loading="lazy" style="width:100%;height:auto;border-radius:3px;display:block;background:#fff"><figcaption>The whole temperature field spans only 1.84 K, so the gradient is lost as noise approaches that size.</figcaption></figure>
+    </div>
+
+    <div class="panel">
+      <h3>What it showed</h3>
+      <ul class="plain-list">
+        <li><b>Porosity can be read from temperature. Permeability cannot.</b> With the coolant flow prescribed, permeability sits only in the momentum balance, not in the energy equations. Recovering it needs pressure-drop data.</li>
+        <li><b>Mean porosity is robust; its gradient is fragile.</b> The gradient needs a full temperature field with noise below about 0.5 K.</li>
+        <li><b>The limit is now the measurement, not the method.</b> The next step needs spatially resolved surface temperature, for example infrared thermography of the heated face.</li>
+      </ul>
+      <h3 style="margin-top:22px">Status</h3>
+      <table class="spec" style="margin-top:8px">
+        <tr><th>Forward model, verified</th><td>Done</td></tr>
+        <tr><th>Validation on powder plates</th><td>Done</td></tr>
+        <tr><th>Graded-porosity inversion</th><td>Shown on synthetic data</td></tr>
+        <tr><th>Inversion from measured IR data</th><td>Planned</td></tr>
+        <tr><th>GPU design of graded plates</th><td>Planned</td></tr>
+      </table>
+      <p class="note">Not yet applied to measured data. These results also shaped the drafted <a href="funding.html">NSF CBET proposal</a> on transient tests read through differentiable inverse models.</p>
     </div>
   </div>
 </section>
